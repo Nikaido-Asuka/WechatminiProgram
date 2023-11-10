@@ -1,0 +1,95 @@
+{
+	"pages": [{
+		"path": "pages/index/index"
+		
+	},{
+		"path": "pages/my/my",
+		"style": {
+			"navigationBarTitleText": "个人中心",
+			"navigationStyle": "custom",
+			"enablePullDownRefresh": false
+		}
+	},{
+		"path" : "pages/editInfo/editInfo",
+		"style" :                                                                                    
+		{
+			"navigationBarTitleText": "编辑资料",
+			"enablePullDownRefresh": false,
+			"navigationStyle": "default"
+		}
+	}
+        ,{
+            "path" : "pages/gene/annualSinger/annualSinger",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/gene/flavour/flavour",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/gene/personal/personal",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+        ,{
+            "path" : "pages/community/community",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false,
+				"navigationStyle": "custom"
+            }
+            
+        }
+    ],
+	"tabBar": {
+		"color": "#515151",
+		"backgroundColor": "#2e2e2e",
+		"selectedColor": "#31c27c",
+		"height": "200",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tabbar/index.png",
+				"selectedIconPath": "static/tabbar/index_active.png",
+				"text": "首页"
+			},{
+				"pagePath": "pages/community/community",
+				"iconPath": "static/tabbar/community.png",
+				"selectedIconPath": "static/tabbar/community_active.png",
+				"text": "社区"
+			},{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/tabbar/my.png",
+				"selectedIconPath": "static/tabbar/my_active.png",
+				"text": "我的"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarBackgroundColor": "#333333",
+		"backgroundColor": "#333333",
+		"app-plus": {
+			"background": "#2e2e2e",
+			"titleNView": false
+		}
+	}
+}

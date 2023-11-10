@@ -1,0 +1,334 @@
+<template>
+	<view class="bigbox">
+		<view class="head">
+			<image mode="widthFix" src="https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg"></image>
+		</view>
+		
+		<image class="avatar" src="https://pic.imgdb.cn/item/652368cac458853aef309984.jpg"></image>
+		
+		
+		<!-- 个人信息 -->
+		<view class="userinfo_bigbox">
+			<view class="userinfo">
+				<text style="color: white; font-size: 20px; margin-left: 20px;">Nikaido Asuka</text>
+				
+				<button class="btn" @click="navigate('editInfo')">编辑资料</button>
+				
+				<view class="tag">
+					<image mode="widthFix" class="VIP" src="https://pic.imgdb.cn/item/652368cac458853aef30998c.png"></image>
+				</view>
+				
+				
+				<view class="ul">
+					<view class="li">关注<text>16</text></view>
+					<view class="li">粉丝<text>16</text></view>
+					<view class="li">好友<text>189</text></view>
+					<view class="li">访客<text>298</text></view>
+				</view>
+			</view>
+		</view>
+		
+		<!-- 个性化信息 -->
+		<view class="personal_info box">
+			<text class="title">音乐基因</text>
+			
+			<scroll-view class="gene_scroll" scroll-x="true">
+				
+				 <view class="gene_item" @click="navigate('gene','annualSinger')">
+					 <view class="inward">
+						 <text class="title">我的年度歌手榜</text>
+						 <text class="name">陶喆</text>
+						 <image src="https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg"/>
+						 <text class="text">真爱就是循环一千遍</text>
+					 </view>
+				 </view>
+				
+				<view class="gene_item" @click="navigate('gene', 'flavour')">
+					<view class="inward">
+						<text class="title">音乐口味</text>
+						<text class="name">独特</text>
+						<image src="../static/userinfo/Compass.png"/>
+						<text class="text">做自己 不跟随</text>
+					</view>
+				</view>
+				
+				<view class="gene_item" @click="navigate('gene', 'personal')">
+					<view class="inward">
+						<text class="title">音乐人格</text>
+						<text class="name">ENFP</text>
+						<text style="font-size: 40px; margin-top: -4px;">🤪</text>
+						<text class="text" style="margin-top: -15px;">快乐的缔造者</text>
+					</view>
+				</view>
+				
+			</scroll-view>
+			
+		</view>
+		
+		<!-- 乐库 -->
+		<view class="box music">
+			<text class="title">乐库</text>
+			
+			<view class="music_list">
+				<view class="music_item">
+					<image src="https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg">
+						<uni-icons class="heart" type="heart-filled" size="30" color="#d81e06"></uni-icons>
+					</image>
+					
+					<view class="info">
+						<text style="color: white; font-size: 20px; font-weight: bold;">收藏</text>
+						<text style="color: gray; font-size: 15px; margin-top: 20px;">12首歌曲 17张专辑 3张歌单</text>
+					</view>
+					
+					<uni-icons class="icon" type="forward" size="18" color="gray"></uni-icons>
+				</view>
+			</view>
+		</view>
+		
+		
+		<!-- 自建歌单 -->
+		<view class="box sheet">
+			<text class="title">歌单</text>
+			
+			<Sheet/>
+		</view>
+		
+	</view>
+</template>
+
+<script>
+	import Sheet from '@/components/sheet/sheet.vue'
+	export default {
+		name:"userinfo",
+		components:{ Sheet },
+		data() {
+			return {
+				
+			};
+		},
+		methods:{
+			navigate(path1, path2){
+				console.log(path1 + path2);
+				var path = null;
+				if(path2 === undefined){
+					path = '/pages/' + path1 + '/' + path1;
+				}else{
+					path = '/pages/' + path1 + '/' + path2 + '/' + path2;
+				}
+				
+				uni.navigateTo({
+					url: path,
+				})
+			}
+		}
+	}
+</script>
+
+<style lang="scss">
+.bigbox{
+	width: 100%;
+	position: relative;
+	padding-bottom: 300px;
+	
+	
+	.head{
+		width: 100%;
+		height: 300px;
+		overflow: hidden;
+		
+		image{
+			width: 100%;
+		}
+	}
+
+
+	.avatar{
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		position: absolute;
+		top: 170px;
+		left: 45px;	
+		z-index: 10;
+	}
+	
+	.userinfo_bigbox{
+		width: 90%;
+		height: 150px;
+		position: absolute;
+		top: 220px;
+		left: 17px;
+		z-index: 2;
+		border-radius: 12px;
+		background: rgba(255, 255, 255, 0.2);
+		
+		.userinfo{
+			width: 100%;
+			height: 150px;
+			margin-top: 50px;
+			position: relative;
+			
+			.btn{
+				position: absolute;
+				right: 20px;
+				display: inline-block;
+				background-color: transparent;
+				border-radius: 25px;
+				width: 100px;
+				height: 40px;
+				color: white;
+				font-size: 15px;
+				line-height: 40px;
+				border: 1px solid white;
+			}
+			
+			.tag{
+				width: 90%;
+				margin: 0 auto;
+				
+				.VIP{
+					width: 50px;
+				}
+				
+			}
+			
+			.ul{
+				width: 90%;
+				margin: -10px auto;
+				height: 50px;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				
+				.li{
+					color: gray;
+					
+					text{
+						color: white;
+						font-size: 17px;
+						margin-left: 5px;
+					}
+				}
+			}
+		}
+	}	
+	.personal_info{
+		margin: 70px auto!important;
+		display: flex;
+		flex-direction: column;
+		
+		.gene_scroll{
+			white-space: nowrap;
+			width: 100%;
+			height: 200px;
+			
+			.gene_item{
+				width: 180px;
+				height: 150px;
+				border-radius: 20px;
+				color: white;
+				margin-top: 10px;
+				font-size: 36px;
+				background: rgba(255, 255, 255, 0.1);
+				margin-right: 20px;
+				display: inline-block;
+				padding-bottom: 6px;
+					
+				.inward{
+					display: flex;
+					flex-direction: column;
+					padding-top: 5px;
+					padding-left: 15px;
+					position: relative;
+					
+					
+					.title{
+						color: gray;
+						font-size: 15px;
+					}
+					.name{
+						margin-top: 3px;
+						color: white;
+						font-size: 25px;
+						font-weight: bold;
+					}
+					image{
+						width: 50px;
+						height: 50px;
+						border-radius: 50%;
+						margin-left: 0px;
+					}
+					.text{
+						color: white;
+						font-weight: bold;
+						font-size: 15px;
+						position: absolute;
+						bottom: -30px;
+					}
+				}
+			}
+			
+			
+			  
+		}
+	}
+	
+	.music{
+		.music_list{
+			height: 200px;
+			
+			.music_item{
+				width: 100%;
+				height: 100px;
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+				
+				
+				image{
+					width: 80px;
+					height: 80px;
+					border-radius: 12px;
+					opacity: 0.5;
+				}
+				
+				.heart{
+					position: absolute;
+					left: 85rpx;
+				}
+				
+				.info{
+					margin-top: 10px;
+					height: 80px;
+					display: flex;
+					flex-direction: column;
+					margin-left: 20px;
+				}
+				.icon{
+					height: 80px;
+					line-height: 80px;
+					float: right;
+					margin-left: 30px;
+				}
+			}
+		}
+	}
+	
+	.sheet{
+		
+	}
+	
+}
+.box{
+	width: 90%;
+	height: 200px;
+	margin: -40px auto;
+	padding-top: 10px;
+}
+
+.title{
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+}
+</style>
