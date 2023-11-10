@@ -23,13 +23,13 @@
 			
 			<view class="buttom">
 				<view class="icon_box">
-					<uni-icons type="hand-up" size="22" color="gray"></uni-icons>
-					{{ item.likeNum }}
+					<uni-icons type="chat" size="22" color="gray"><text>18</text></uni-icons>
+					{{ item.commentNum }}
 				</view>
 				
 				<view class="icon_box">
-					<uni-icons type="chat" size="22" color="gray"><text>18</text></uni-icons>
-					{{ item.commentNum }}
+					<uni-icons type="hand-up" size="22" color="gray"></uni-icons>
+					{{ item.likeNum }}
 				</view>
 				
 			</view>
@@ -61,8 +61,8 @@
 					}
 				},{
 					id: '2',
-					avatar: 'https://pic.imgdb.cn/item/652368cac458853aef309984.jpg',
-					username: 'Nikaido Asuka',
+					avatar: 'https://pic.imgdb.cn/item/654dd8bac458853aef834ff7.jpg',
+					username: '林零柒',
 					text: '纯纯的神专！',
 					likeNum: 100,
 					commentNum: 21,

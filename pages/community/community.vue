@@ -3,8 +3,8 @@
 		<!-- 头部导航 -->
 		<view class="nav_box">
 			<view class="nav">
-				<view class="item" v-for="(item, index) in  routerTitle" :key="index" :class="pageIndex === index ? 'active' : ''" @click="changePage(index, item.path)">
-					{{ item.name }}
+				<view class="item" v-for="(item, index) in  routerTitle" :key="index" :class="pageIndex === index ? 'active' : ''" @click="changePage(index)">
+					{{ item }}
 				</view>
 			</view>
 			
@@ -50,13 +50,7 @@
 		components:{ Square, Focus },
 		data() {
 			return {
-				routerTitle:[{
-					name: '广场',
-					path: '/pages/community/square'
-				},{
-					name: '关注',
-					path: '/pages/community/focus'
-				}],
+				routerTitle:[ '广场', '关注'],
 				singerList:[{
 					id: '1',
 					name: '陶喆',
@@ -73,11 +67,11 @@
 					img: 'https://pic.imgdb.cn/item/650e4032c458853aefbfbdd1.jpg',
 					color: 'navajowhite',
 				}],
-				pageIndex: 0,
+				pageIndex: 1,
 			};
 		},
 		methods:{
-			changePage(index, path){
+			changePage(index){
 				this.pageIndex = index;
 			}
 		}

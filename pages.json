@@ -58,12 +58,20 @@
             }
             
         }
+        ,{
+            "path" : "pages/postDetail/postDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "动态",
+				"navigationBarBackgroundColor": "#2e2e2e"
+            }
+            
+        }
     ],
 	"tabBar": {
 		"color": "#515151",
 		"backgroundColor": "#2e2e2e",
 		"selectedColor": "#31c27c",
-		"height": "200",
 		"list": [
 			{
 				"pagePath": "pages/index/index",
