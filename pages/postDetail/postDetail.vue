@@ -19,6 +19,7 @@
 				</view>
 				
 				<view class="song_box">
+					<image class="play" src="../../static/community/播放.png"></image>
 					<image :src="post.song.img"></image>
 					<view class="center">
 						<text class="name">{{ post.song.name }}</text>
@@ -55,6 +56,7 @@
 			
 			<view class="comment_list">
 				<view class="comment_item">
+					
 					<view class="item_head">
 						<image src="https://pic.imgdb.cn/item/652368cac458853aef309984.jpg"/>
 						<text>Nikaido Asuka</text>
@@ -180,6 +182,7 @@
 				justify-content: flex-start;
 				align-items: center;
 				background: rgba(255,255, 255, 0.1);
+				position: relative;
 				
 				.center{
 					margin-left: 10px;
@@ -197,15 +200,22 @@
 					}
 				}
 				.icon{
-					float: right;
 					position: absolute;
-					right: 50px;
+					right: 25px;
 				}
 				
 				image{
 					width: 55px;
 					height: 55px;
 					opacity: 0.5;
+				}
+				
+				.play{
+					width: 25px;
+					height: 25px;
+					position: absolute;
+					left: 15px;
+					opacity: 1;
 				}
 			}
 			
@@ -249,25 +259,26 @@
 					line-height: 30px;
 					
 					image{
-						width: 50px;
-						height: 50px;
+						width: 30px;
+						height: 30px;
 						border-radius: 50%;
 					}
 					text{
 						color: gray;
 						font-weight: bold;
+						font-size: 12px;
 						padding-left: 10px;
 					}
 				}
 				
 				.item_content{
-					padding-left: 80px;
+					padding-left: 60px;
 				}
 				
 				.buttom{
 					padding-top: 10px;
 					display: flex;
-					padding-left: 75px;
+					padding-left: 55px;
 					justify-content: flex-start;
 				
 					.icon_box{

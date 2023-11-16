@@ -21,6 +21,7 @@
 			</view>
 			
 			<view class="song_box">
+				<image class="play" src="../../static/community/播放.png"></image>
 				<image :src="item.song.img"></image>
 				<view class="center">
 					<text class="name">{{ item.song.name }}</text>
@@ -80,6 +81,8 @@
 		methods:{
 			changeLike(index){
 				this.postsList[index].song.isLike = !this.postsList[index].song.isLike;
+				event.defaultPrevented();
+				console.log("???");
 			},
 			toDetail(index){
 				// 我们使用 JSON.stringify 将 A 页面的整个 data 对象转换为 JSON 字符串，并将其作为 URL 的 query 参数传递给 B 页面。
@@ -156,6 +159,7 @@
 			justify-content: flex-start;
 			align-items: center;
 			background: rgba(255,255, 255, 0.1);
+			position: relative;
 			
 			.center{
 				margin-left: 10px;
@@ -173,15 +177,21 @@
 				}
 			}
 			.icon{
-				float: right;
 				position: absolute;
-				right: 50px;
+				right: 25px;
 			}
 			
 			image{
 				width: 55px;
 				height: 55px;
 				opacity: 0.5;
+			}
+			.play{
+				width: 25px;
+				height: 25px;
+				position: absolute;
+				left: 15px;
+				opacity: 1;
 			}
 		}
 		

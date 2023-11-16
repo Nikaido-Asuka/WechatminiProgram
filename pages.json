@@ -65,6 +65,21 @@
                 "navigationBarTitleText": "动态",
 				"navigationBarBackgroundColor": "#2e2e2e"
             }
+        },{
+			"path": "pages/songDetail/songDetail",
+			"style": {
+				"navigationStyle": "custom",
+				"enablePullDownRefresh": false,
+				"navigationBarTitleText": ""
+			}
+		}
+        ,{
+            "path" : "subpages/test/test1/test1",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
             
         }
     ],
