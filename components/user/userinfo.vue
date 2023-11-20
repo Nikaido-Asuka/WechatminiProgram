@@ -4,13 +4,17 @@
 			<image mode="widthFix" src="https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg"></image>
 		</view>
 		
-		<image class="avatar" src="https://pic.imgdb.cn/item/652368cac458853aef309984.jpg"></image>
+		<image class="avatar" :src="userinfo.avatar"></image>
 		
 		
 		<!-- 个人信息 -->
 		<view class="userinfo_bigbox">
 			<view class="userinfo">
-				<text style="color: white; font-size: 20px; margin-left: 20px;">Nikaido Asuka</text>
+				<view class="username">
+					<text style="color: white; font-size: 20px; margin-left: 20px;">{{ userinfo.username }}</text>
+					<image @click="logout" src="../../static/userinfo/退出.png"/>
+				</view>
+				
 				
 				<button class="btn" @click="navigate('editInfo')">编辑资料</button>
 				
@@ -20,10 +24,10 @@
 				
 				
 				<view class="ul">
-					<view class="li">关注<text>16</text></view>
-					<view class="li">粉丝<text>16</text></view>
-					<view class="li">好友<text>189</text></view>
-					<view class="li">访客<text>298</text></view>
+					<view class="li">关注<text>{{ userinfo.focusNum}}</text></view>
+					<view class="li">粉丝<text>{{ userinfo.fansNum}}</text></view>
+					<view class="li">好友<text>{{ userinfo.firend }}</text></view>
+					<view class="li">访客<text>{{ userinfo.visitorNum}}</text></view>
 				</view>
 			</view>
 		</view>
@@ -47,7 +51,7 @@
 					<view class="inward">
 						<text class="title">音乐口味</text>
 						<text class="name">独特</text>
-						<image src="../static/userinfo/Compass.png"/>
+						<image src="../../static/userinfo/Compass.png"/>
 						<text class="text">做自己 不跟随</text>
 					</view>
 				</view>
@@ -89,14 +93,22 @@
 		<!-- 自建歌单 -->
 		<view class="box sheet">
 			<text class="title">歌单</text>
-			
 			<Sheet/>
+		</view>
+		
+		<!-- 提示窗示例 -->
+		<view>
+			<uni-popup ref="alertDialog" type="dialog">
+				<uni-popup-dialog type="info" cancelText="取消" confirmText="确定" title="通知" content="是否确定退出登陆？" @confirm="dialogConfirm"
+					@close="dialogClose"></uni-popup-dialog>
+			</uni-popup>
 		</view>
 		
 	</view>
 </template>
 
 <script>
+	import { mapMutations, mapState } from 'vuex'
 	import Sheet from '@/components/sheet/sheet.vue'
 	export default {
 		name:"userinfo",
@@ -106,7 +118,21 @@
 				
 			};
 		},
+		computed:{
+			...mapState('user', ['userinfo']),
+		},
 		methods:{
+			...mapMutations('user', ['removeUser']),
+			logout(){
+				this.$refs.alertDialog.open();
+			},
+			dialogConfirm(){
+				this.removeUser();
+				this.$refs.alertDialog.close();
+			},
+			dialogClose(){
+				this.$refs.alertDialog.close();
+			},
 			navigate(path1, path2){
 				console.log(path1 + path2);
 				var path = null;
@@ -168,8 +194,20 @@
 			margin-top: 50px;
 			position: relative;
 			
+			.username{
+				display: flex;
+				align-items: center;
+				
+				image{
+					width: 30px;
+					height: 30px;
+					margin-left: 10px;
+				}
+			}
+			
 			.btn{
 				position: absolute;
+				top: -10px;
 				right: 20px;
 				display: inline-block;
 				background-color: transparent;
