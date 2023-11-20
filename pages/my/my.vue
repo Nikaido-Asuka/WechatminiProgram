@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	import Userinfo from '@/components/userinfo.vue'
+	import Userinfo from '@/components/user/userinfo.vue'
 	export default {
 		data() {
 			return {

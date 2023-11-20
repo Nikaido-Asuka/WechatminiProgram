@@ -72,17 +72,23 @@
 				"enablePullDownRefresh": false,
 				"navigationBarTitleText": ""
 			}
-		}
-        ,{
-            "path" : "subpages/test/test1/test1",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+		}  
     ],
+	"subPackages": [
+		{
+			"root": "subpages",
+			"pages": [{
+				"path" : "singerDetail/singerDetail",
+				"style" :                                                                                    
+				{
+					"navigationStyle": "custom",
+					"enablePullDownRefresh": false,
+					"navigationBarTitleText": ""
+				}
+			}    
+			]
+		}
+	],
 	"tabBar": {
 		"color": "#515151",
 		"backgroundColor": "#2e2e2e",

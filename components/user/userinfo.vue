@@ -71,16 +71,16 @@
 			
 			<view class="music_list">
 				<view class="music_item">
-					<image src="https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg">
-						<uni-icons class="heart" type="heart-filled" size="30" color="#d81e06"></uni-icons>
-					</image>
-					
-					<view class="info">
-						<text style="color: white; font-size: 20px; font-weight: bold;">收藏</text>
-						<text style="color: gray; font-size: 15px; margin-top: 20px;">12首歌曲 17张专辑 3张歌单</text>
+					<view class="left">
+						<image src="https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg"/>
+						<uni-icons class="heart" size="25" type="heart-filled" color="#d94b47"></uni-icons>
+						<view class="left_info">
+							<text style="color: white; font-size: 18px;">我喜欢</text>
+							<text class="info">12首歌曲 3张专辑 8张歌单</text>
+						</view>
 					</view>
 					
-					<uni-icons class="icon" type="forward" size="18" color="gray"></uni-icons>
+					<uni-icons type="forward" size="20" color="gray"></uni-icons>
 				</view>
 			</view>
 		</view>
@@ -128,7 +128,7 @@
 .bigbox{
 	width: 100%;
 	position: relative;
-	padding-bottom: 300px;
+	padding-bottom: 100px;
 	
 	
 	.head{
@@ -281,34 +281,42 @@
 				width: 100%;
 				height: 100px;
 				display: flex;
-				justify-content: flex-start;
+				justify-content: space-between;
 				align-items: center;
 				
-				
-				image{
-					width: 80px;
-					height: 80px;
-					border-radius: 12px;
-					opacity: 0.5;
-				}
-				
-				.heart{
-					position: absolute;
-					left: 85rpx;
-				}
-				
-				.info{
-					margin-top: 10px;
-					height: 80px;
+				.left{
 					display: flex;
-					flex-direction: column;
-					margin-left: 20px;
-				}
-				.icon{
-					height: 80px;
-					line-height: 80px;
-					float: right;
-					margin-left: 30px;
+					position: relative;
+					justify-content: flex-start;
+					
+					.heart{
+						position: absolute;
+						top: 20px;
+						left: 20px;
+					}
+					
+					
+					image{
+						width: 60px;
+						height: 60px;
+						border-radius: 12px;
+						opacity: 0.5;
+					}
+					
+					.left_info{
+						width: 200px;
+						padding-left: 10px;
+						display: flex;
+						flex-direction: column;
+						justify-content: space-between;
+						
+						.info{
+							color: gray;
+							font-size: 12px;
+							width: 100px;
+							white-space: nowrap;
+						}
+					}
 				}
 			}
 		}
