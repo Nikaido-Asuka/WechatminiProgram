@@ -1,16 +1,23 @@
 <template>
 	<view>
-		<view class="item" v-for="(item, index) in songList" :key="item.id">
-			<view class="left">
-				<image :src="item.img"/>
-				<view class="left_info">
-					<text>{{ item.name }}</text>
-					<text class="info">{{ singer }} · {{ item.album }}</text>
-				</view>
-			</view>
-			
-			<uni-icons size="25" color="gray" type="videocam-filled"></uni-icons>
-		</view>
+		<uni-swipe-action>
+			<block v-for="(item, index) in songList" :key="item.id" >
+				<uni-swipe-action-item @click="open" :right-options="options">
+					<view class="item">
+							<view class="left">
+								<image :src="item.img"/>
+								<view class="left_info">
+									<text>{{ item.name }}</text>
+									<text class="info">{{ singer }} · {{ item.album }}</text>
+								</view>
+							</view>
+							
+							<uni-icons size="25" color="gray" type="videocam-filled"></uni-icons>
+					</view>
+				</uni-swipe-action-item>
+			</block>
+		</uni-swipe-action>
+		
 	</view>
 </template>
 
@@ -18,6 +25,13 @@
 	export default {
 		data() {
 			return {
+				options: [{
+						text: '删除',
+						style: {
+							backgroundColor: '#F56C6C'
+						}
+					}
+				],
 				singer: '陶喆',
 				songList:[{
 					id: '1',

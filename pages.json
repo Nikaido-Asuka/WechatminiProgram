@@ -1,20 +1,21 @@
 {
 	"pages": [{
-		"path": "pages/index/index"
-		
+		"path": "pages/index/index",
+		"style": {
+			"navigationBarTitleText": "个人中心",
+			"navigationStyle": "custom"
+		}
 	},{
 		"path": "pages/my/my",
 		"style": {
 			"navigationBarTitleText": "个人中心",
-			"navigationStyle": "custom",
-			"enablePullDownRefresh": false
+			"navigationStyle": "custom"
 		}
 	},{
 		"path" : "pages/editInfo/editInfo",
 		"style" :                                                                                    
 		{
 			"navigationBarTitleText": "编辑资料",
-			"enablePullDownRefresh": false,
 			"navigationStyle": "default"
 		}
 	}
@@ -23,7 +24,6 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false,
 				"navigationStyle": "custom"
             }
             
@@ -33,7 +33,6 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false,
 				"navigationStyle": "custom"
             }
             
@@ -43,7 +42,6 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false,
 				"navigationStyle": "custom"
             }
             
@@ -53,7 +51,6 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false,
 				"navigationStyle": "custom"
             }
             
@@ -69,7 +66,6 @@
 			"path": "pages/songDetail/songDetail",
 			"style": {
 				"navigationStyle": "custom",
-				"enablePullDownRefresh": false,
 				"navigationBarTitleText": ""
 			}
 		}  
@@ -82,11 +78,18 @@
 				"style" :                                                                                    
 				{
 					"navigationStyle": "custom",
-					"enablePullDownRefresh": false,
 					"navigationBarTitleText": ""
 				}
-			}    
-			]
+			}    ,{
+                    "path" : "searchDetail/searchDetail",
+                    "style" :                                                                                    
+                {
+                    "navigationStyle": "custom",
+                    "navigationBarTitleText": ""
+                }
+                
+                }
+            ]
 		}
 	],
 	"tabBar": {
