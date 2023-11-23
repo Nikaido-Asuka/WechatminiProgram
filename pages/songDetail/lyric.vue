@@ -3,8 +3,8 @@
 		<!-- 1.头部 -->
 		  <view class="head">
 		   <view class="left">
-		    <text class="name">流沙(Reimagined)</text>
-		    <text class="singer">陶喆 &nbsp;&nbsp;&nbsp;&nbsp;制作团队 > </text>
+		    <text class="name">{{ song.songName }}</text>
+		    <text class="singer">{{ song.singerName }} &nbsp;&nbsp;&nbsp;&nbsp;制作团队 > </text>
 		   </view>
 		   
 		   <view class="right">

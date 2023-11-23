@@ -1,7 +1,7 @@
 <template>
 	<view class="bigbox" :style="{ '--bgurl': 'url(' + song.img + ')' }">
 		<view class="head">
-			<uni-icons type="bottom" color="gray" size="20"></uni-icons>
+			<uni-icons type="bottom" color="gray" size="20" @click="goBack"></uni-icons>
 			
 			<view class="center">
 				<text v-for="(item, index) in titleArr" :key="index" @click="changePage(index)" :class="index === activeIndex ? 'active' : ''">{{item}}</text>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex'
+	import { mapState, mapMutations } from 'vuex'
 	import Song from '@/pages/songDetail/song.vue'
 	import Lyric from '@/pages/songDetail/lyric.vue'
 	export default {
@@ -26,8 +26,12 @@
 		data() {
 			return {
 				titleArr:['歌曲', '歌词'],
-				activeIndex: 1,	
+				activeIndex: 0,	
 			};
+		},
+		onLoad(options){
+			console.log(options);
+			this.fuckGetSong(options.id);	
 		},
 		computed:{
 			...mapState('song', ['song']),
@@ -39,8 +43,15 @@
 			}
 		},
 		methods:{
+			...mapMutations('song', ['getSong']),
+			fuckGetSong(id){
+				this.getSong(id);
+			},
 			changePage(index){
 				this.activeIndex = index;
+			},
+			goBack(){
+				uni.navigateBack();
 			}
 		}
 	}

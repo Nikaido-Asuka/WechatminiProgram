@@ -1,6 +1,13 @@
 <template>
 	<view>
+	<!-- 写帖子 -->
+	<view @click="toWrite" class="addPost">
+		<uni-icons size="25" color="white" type="plusempty"></uni-icons>
+	</view>
 	<view class="item" v-for="(item, index) in postsList" :key="item.id">
+		
+		
+		
 		<!-- 头部 -->
 		<view class="head">
 			<image class="avatar" :src="item.avatar"></image>
@@ -85,18 +92,37 @@
 			changeLike(index){
 				this.postsList[index].song.isLike = !this.postsList[index].song.isLike;
 				event.defaultPrevented();
+			},
+			toWrite(){
+				uni.navigateTo({
+					url: '/subpages/postForm/postForm'
+				})
 			}
 		}
 	}
 </script>
 
 <style scoped lang="scss">
+.addPost{
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: #31c27c;
+	z-index: 100;
+	text-align: center;
+	line-height: 60px;
+	
+}
 .item{
 	border-radius: 8px;
 	margin: 10px 10px;
 	height: 200px;
 	background-color: #2e2e2e;
 	padding-bottom: 20px;
+	position: relative;
 	
 	.head{
 		padding: 10px 20px;

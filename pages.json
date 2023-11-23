@@ -88,6 +88,14 @@
                     "navigationBarTitleText": ""
                 }
                 
+                },{
+                    "path" : "postForm/postForm",
+                    "style" :                                                                                    
+                {
+					"navigationStyle": "custom",
+					"navigationBarTitleText": ""
+                }
+                
                 }
             ]
 		}

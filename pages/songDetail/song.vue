@@ -2,21 +2,21 @@
 	<view class="bigbox">
 		<!-- 1.封面 -->
 		  <view class="img">
-		   <image mode="widthFix" src="https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg"></image>
+		   <image mode="widthFix" :src="song.img"></image>
 		  </view>
 		  
 		  <!-- 2.歌曲信息 -->
 		  <view class="info">
 		   <!-- 2.1歌名 -->
 		   <view class="head">
-		    <text class="name">流沙(Reimagined)</text>
+		    <text class="name">{{ song.songName }}</text>
 		    <view class="icon_box">
 		     <uni-icons type="heart" color="gray" size="30"></uni-icons>
 		    </view>
 		   </view>
 		   
 		   <!-- 2.2歌手 -->
-		   <text class="singer">陶喆</text>
+		   <text class="singer">{{ song.singerName }}</text>
 		   
 		   <!-- 2.3歌词 -->
 		   <text class="lyric">{{ song.lyrics[song.currentLyricIndex].text }}</text>
@@ -29,7 +29,7 @@
 		   <!-- 3.1下载评论等 -->
 		   <view class="operate_icon">
 		    <uni-icons type="download-filled" color="gray" size="25"></uni-icons>
-		    <uni-icons type="chat-filled" color="gray" size="25"></uni-icons>
+		    <uni-icons type="chat-filled" color="gray" size="25" @click="toPostForm"></uni-icons>
 		    <uni-icons type="more-filled" color="gray" size="25"></uni-icons>
 		   </view>
 		   
@@ -75,6 +75,10 @@
 		},
 		methods:{
 			...mapMutations('song', ['updateLyricIndex', 'playChange', 'play', 'playOver', 'toDesignate']),
+			toPostForm(){
+				const song = this.song;
+				
+			},
 			playPause(){
 				this.playChange();
 				if(this.song.isPlay){

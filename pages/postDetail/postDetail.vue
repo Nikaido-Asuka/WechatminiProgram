@@ -20,13 +20,16 @@
 				
 				<view class="song_box">
 					<image class="play" src="../../static/community/播放.png"></image>
-					<image :src="post.song.img"></image>
+					<image @click.capture="toSongDetail" :src="post.song.img"></image>
 					<view class="center">
 						<text class="name">{{ post.song.name }}</text>
 						<text class="singer">{{ post.song.singer }}</text>
 					</view>
-					<uni-icons @click="changeLike(index)" v-if="!post.song.isLike" class="icon" type="heart" color="gray" size="25"></uni-icons>
-					<uni-icons @click="changeLike(index)" v-else class="icon" type="heart-filled" color="brown" size="25"></uni-icons>
+					<view class="icon_box" @click="changeLike(index, $event)">
+						<uni-icons v-if="!post.song.isLike" type="heart" color="gray" size="25"></uni-icons>
+						<uni-icons v-else type="heart-filled" color="brown" size="25"></uni-icons>
+					</view>
+					
 				</view>
 				
 				<view class="buttom">
@@ -101,6 +104,7 @@
 						'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg'
 					],
 					song:{
+						id: '1',
 						img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg',
 						name: '流沙(Reimagined)',
 						singer: '陶喆(David Tao)',
@@ -112,6 +116,20 @@
 		onLoad(options){
 			// this.post = JSON.parse(options.data);
 			// console.log(this.post);
+		},
+		methods:{
+			toSongDetail(){
+				const songId = this.post.song.id;
+				uni.navigateTo({
+					url: `/pages/songDetail/songDetail?id=${sondId}`,
+				})
+			},
+			 changeLike(index, event){
+				console.log(event);
+				event.preventDefault();
+				event.stopPropagation();
+			    this.post.song.isLike = !this.post.song.isLike;
+			}
 		}
 	}
 </script>
@@ -199,10 +217,11 @@
 						font-size: 10px;
 					}
 				}
-				.icon{
+				.icon_box{
 					position: absolute;
 					right: 25px;
 				}
+				
 				
 				image{
 					width: 55px;

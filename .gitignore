@@ -5,5 +5,4 @@ deploy_versions/
 .rn_temp/
 .DS_Store
 node_modules
-uni_modules
 __tests__/

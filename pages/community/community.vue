@@ -19,7 +19,7 @@
 			<view class="panel">
 				<text class="title">推荐歌手</text>
 				<scroll-view class="singer_list" scroll-x="true">
-					<view class="singer_item" v-for="(item, index) in singerList" :key="item.id" :style="{backgroundColor : item.color}">
+					<view class="singer_item" v-for="(item, index) in singerList" :key="item.id" :style="{ background: 'linear-gradient(' + item.color1 + ',' + item.color2 +')', }">
 						<view class="item_content">
 							<image class="img" :src="item.img"></image>
 							<text class="name">{{ item.name }}</text>
@@ -55,19 +55,28 @@
 					id: '1',
 					name: '陶喆',
 					img: 'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg',
-					color: 'cornflowerblue',
+					color1: '#6495ed',
+					color2: '#acc1e5',
 				},{
 					id: '2',
 					name: '周杰伦',
 					img: 'https://pic.imgdb.cn/item/650e4032c458853aefbfbdb4.jpg',
-					color: 'rebeccapurple',
+					color1: '#663399',
+					color2: '#7567b4',
 				},{
 					id: '3',
 					name: '张雨生',
 					img: 'https://pic.imgdb.cn/item/650e4032c458853aefbfbdd1.jpg',
-					color: 'navajowhite',
+					color1: '#ffdead',
+					color2: '#f3fcca'
+				},{
+					id: '4',
+					name: '王力宏',
+					img: 'https://pic.imgdb.cn/item/650f9eb7c458853aef466149.webp',
+					color1: '#f3fd66',
+					color2: '#c8fe7b',
 				}],
-				pageIndex: 1,
+				pageIndex: 0,
 			};
 		},
 		methods:{
@@ -137,21 +146,24 @@
 		z-index: 0;
 		
 		.panel{
-			padding:0 10px;
+			padding:10px 10px;
+			background-color: #2e2e2e;
+			
 			.title{
 				color: white;
 				font-weight: bold;
-				font-size: 25px;
+				font-size: 18px;
 			}
 			
 			.singer_list{
+				margin-top: 10px;
 				white-space: nowrap;
 				width: 100%;
 				
 				.singer_item{
 					display: inline-block;
-					width: 120px;
-					height: 180px;
+					width: 110px;
+					height: 150px;
 					border-radius: 8px;
 					margin-right: 20px;
 					
@@ -161,14 +173,17 @@
 						flex-direction: column;
 						align-items: center;
 						justify-content: flex-start;
-						padding-top: 10px;
+						padding: 10px 0px;
+					
 						.img{
-							width: 80px;
-							height: 80px;
+							width: 65px;
+							height: 65px;
 							border-radius: 50%;
 						}
 						.name{
-							font-size: 20px;
+							color: #2e2e2e;
+							font-size: 18px;
+							font-weight: 400;
 							margin-top: 20px;
 						}
 					}

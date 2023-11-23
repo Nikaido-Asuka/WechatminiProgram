@@ -2,7 +2,10 @@ export default {
     namespaced: true,
 
     state: () => ({
-        song:{
+        songList:[{
+			id: '1',
+			songName: '流沙（Reimagined）',
+			singerName: '陶喆',
         	currentTime: 0,
         	duration: 291,
         	intervalId: null, // setInterval返回的定时器ID
@@ -49,11 +52,35 @@ export default {
 				{ text: "心里的牵挂 不愿放下", startTime: 224},
 				{ text: "Oh baby 让我这样吧", startTime: 230 },
         		]
-        }
+        },{
+			id: '2',
+			songName: "One Summery's Day",
+			singerName: '久石让',
+			currentTime: 0,
+			duration: 269,
+			intervalId: null, // setInterval返回的定时器ID
+			isPlay: false,
+			currentLyricIndex: 0,
+			songContext : uni.createInnerAudioContext(),
+			img: "https://pic.imgdb.cn/item/650d2e3cc458853aef2b93d9.jpg",
+			audio: 'https://3wt.music.eduingame.cn/2023/09-21/54364ff93c304cbcb6832577511ae9f03wcn474791.mp3',
+			lyrics:[{ text: '纯音乐 暂无歌词', startTime: 0}]
+		}],
+		song: {},
     }),
 
 
     mutations: {
+		// 根据id获得歌曲
+		getSong(state, id){
+			state.songList.map( item => {
+				if(item.id === id){
+					state.song = item;
+				}
+			})
+		},
+		
+		
 		// 修改歌词索引和时间
 		updateLyricIndex(state, index) {
 		    state.song.currentLyricIndex = index;
