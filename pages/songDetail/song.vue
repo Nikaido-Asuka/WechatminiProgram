@@ -2,7 +2,7 @@
 	<view class="bigbox">
 		<!-- 1.封面 -->
 		  <view class="img">
-		   <image mode="widthFix" :src="song.img"></image>
+		   <image @longtap="previewImg" :data-imgUrl="song.img" mode="widthFix" :src="song.img"></image>
 		  </view>
 		  
 		  <!-- 2.歌曲信息 -->
@@ -29,7 +29,7 @@
 		   <!-- 3.1下载评论等 -->
 		   <view class="operate_icon">
 		    <uni-icons type="download-filled" color="gray" size="25"></uni-icons>
-		    <uni-icons type="chat-filled" color="gray" size="25" @click="toPostForm"></uni-icons>
+		    <uni-icons type="chat-filled" color="gray" size="25"></uni-icons>
 		    <uni-icons type="more-filled" color="gray" size="25"></uni-icons>
 		   </view>
 		   
@@ -46,7 +46,7 @@
 		     <image v-if="!song.isPlay" src="../../static/community/播放.png" @click="playPause"></image>
 		     <image v-else style="margin-left: 0px;!important" src="../../static/songDetail/暂停 (1).png" @click="playPause"></image>
 		    </view>
-		    <image style="width: 30px;" mode="widthFix" src="../../static/songDetail/下一首.png"/>
+		    <image @click="nextOne" style="width: 30px;" mode="widthFix" src="../../static/songDetail/下一首.png"/>
 		    <uni-icons type="settings" color="gray" size="25"></uni-icons>
 		   </view>
 		   
@@ -74,10 +74,16 @@
 			},
 		},
 		methods:{
-			...mapMutations('song', ['updateLyricIndex', 'playChange', 'play', 'playOver', 'toDesignate']),
-			toPostForm(){
-				const song = this.song;
-				
+			...mapMutations('song', ['updateLyricIndex', 'playChange', 'play', 'playOver', 'toDesignate', 'cutToNext']),
+			previewImg(e){
+				const imgUrl = e.currentTarget.dataset.imgurl;
+				uni.previewImage({
+					urls: [imgUrl],
+				})
+			},
+			
+			nextOne(){
+				this.cutToNext();
 			},
 			playPause(){
 				this.playChange();
@@ -183,7 +189,7 @@
 			
 			.bar{
 				 height: 100%;
-				 background-color: #007bff;
+				 background-color: #6e7a74;
 				 width: 0;
 				 transition: width 0.3s;
 			}

@@ -38,6 +38,7 @@
 				titleIndex: 0,
 				titleArr: ['推荐', '乐馆', '听书', '故事'],
 				searchValue: '',
+				
 			}
 		},
 		computed:{

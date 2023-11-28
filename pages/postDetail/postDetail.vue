@@ -6,7 +6,7 @@
 				<image class="avatar" :src="post.avatar"></image>
 				<view class="head_info">
 					<text :style="{ color: post.isStar ? '#31c27c' : 'gray'}" class="username">{{ post.username }}</text>
-					<text class="time">2023.07.03</text>
+					<text class="time">{{ post.time }}</text>
 				</view>
 			</view>
 			
@@ -15,7 +15,7 @@
 				
 				<!-- image部分 -->
 				<view class="image_box">
-					<image v-for="(img, index2) in post.image" :key="index2" :src="img"></image>
+					<image @tap="preViewImg(index2)" v-for="(img, index2) in post.image" :key="index2" :src="img"></image>
 				</view>
 				
 				<view class="song_box">
@@ -118,6 +118,12 @@
 			// console.log(this.post);
 		},
 		methods:{
+			preViewImg(index){
+				uni.previewImage({
+					urls: this.post.image,
+					current: this.post.image[index]
+				})
+			},
 			toSongDetail(){
 				const songId = this.post.song.id;
 				uni.navigateTo({

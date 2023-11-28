@@ -1,10 +1,10 @@
 <template>
 	<view class="bigbox">
 		<view class="head">
-			<image mode="widthFix" src="https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg"></image>
+			<image @tap="previewImg" mode="widthFix" :data-imgUrl="userinfo.bgImg" :src="userinfo.bgImg"></image>
 		</view>
 		
-		<image class="avatar" :src="userinfo.avatar"></image>
+		<image @tap="previewImg" class="avatar" :data-imgUrl="userinfo.avatar" :src="userinfo.avatar"></image>
 		
 		
 		<!-- 个人信息 -->
@@ -123,6 +123,17 @@
 		},
 		methods:{
 			...mapMutations('user', ['removeUser']),
+			previewImg(e){
+				const imgUrl = e.currentTarget.dataset.imgurl;
+				uni.previewImage({
+					urls: [imgUrl],
+				})
+			},
+			toCommunity(){
+				uni.navigateTo({
+					url: '/pages/community/community'
+				})
+			},
 			logout(){
 				this.$refs.alertDialog.open();
 			},

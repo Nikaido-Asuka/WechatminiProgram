@@ -2,7 +2,11 @@
 	<view class="search_box">
 		<view class="search" @click="searchBoxHandler">
 			<uni-icons style="margin-left: 10px;" color="gray" type="search" size="20"></uni-icons>
-			<text class="placeholder">{{ searchSongArr[searchSongIndex] }}</text>
+			<view class="placeholder_box" :style="{ marginTop: -90 * searchSongIndex + 'px' }">
+				<text v-for="(item, index) in searchSongArr" :key="index" class="placeholder" >
+					{{ item }}
+				</text>
+			</view>
 		</view>
 		
 		<image mode="widthFix" src="../../static/index/磁片唱片.png"/>
@@ -17,7 +21,7 @@
 				intervalId: null,
 				searchValue: '',
 				searchSongIndex: 0,
-				searchSongArr: ['普通朋友', '流沙（Reimagined）', '蝴蝶'],
+				searchSongArr: ['普通朋友', '流沙（Reimagined）', '蝴蝶', '太美丽', "I'm OK（Reimagined）", '就是爱你', '不爱'],
 			};
 		},
 		mounted(){
@@ -35,7 +39,7 @@
 			change(){
 				this.intervalId = setInterval(()=>{
 					this.searchSongIndex += 1;
-					if(this.searchSongIndex >= 3){
+					if(this.searchSongIndex >= this.searchSongArr.length){
 						this.searchSongIndex = 0;
 					}
 				},5000)
@@ -59,6 +63,7 @@
 	align-items: center;
 	
 	.search{
+		overflow: hidden;
 		width: 80%;
 		height: 35px;
 		border-radius: 18px;
@@ -69,10 +74,22 @@
 		align-items: center;
 		gap: 10px;
 		
-		.placeholder{
-			color: gray;
+		.placeholder_box{
+			display: flex;
 			transition: all 0.5s;
+			flex-direction: column;
+			gap: 10px;
+			height: 35px;
+			line-height: 35px;
+			
+			
+			.placeholder{
+				color: gray;
+				transition: all 0.5s;
+			}
 		}
+		
+		
 	}
 	
 	image{

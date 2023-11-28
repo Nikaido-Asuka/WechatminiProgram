@@ -24,6 +24,7 @@
 		    id: '1',
 		    username: 'Nikaido Asuka',
 		    avatar: 'https://pic.imgdb.cn/item/652368cac458853aef309984.jpg',
+			bgImg: 'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg',
 		    focusNum: 16,
 		    fansNum: 16,
 		    firend: 189,

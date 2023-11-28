@@ -50,6 +50,8 @@
 		components:{ Square, Focus },
 		data() {
 			return {
+				addPost: {},
+				pageIndex: 0,
 				routerTitle:[ '广场', '关注'],
 				singerList:[{
 					id: '1',
@@ -76,10 +78,10 @@
 					color1: '#f3fd66',
 					color2: '#c8fe7b',
 				}],
-				pageIndex: 0,
 			};
 		},
 		methods:{
+			
 			changePage(index){
 				this.pageIndex = index;
 			}
