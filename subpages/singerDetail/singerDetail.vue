@@ -46,11 +46,9 @@
 			<songList v-show="titleIndex === 1"/>
 			
 			<!-- 3.专辑 -->
-			<view style="padding: 10px 20px;">
+			<view v-show="titleIndex === 2" style="padding: 10px 20px;">
 				<Album/>
 			</view>
-			
-			
 			
 			<!-- 4.视频 -->
 			<view v-if="titleIndex === 3" class="video">

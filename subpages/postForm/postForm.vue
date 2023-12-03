@@ -49,6 +49,7 @@
 	export default {
 		data() {
 			return {
+				isEdit: false,
 				post:{
 					username: '',
 					avatar: '',
@@ -62,14 +63,16 @@
 				}
 			};
 		},
-		mounted(){
-			
+		onLoad(options){
+			this.post = JSON.parse(options.post);
+			this.isEdit = options.isEdit;
+			console.log(this.post);
 		},
 		computed:{
 			...mapState('user', ['userinfo']),
 		},
 		methods:{
-			...mapMutations('post', ['addPost']),
+			...mapMutations('post', ['addPost', 'editPostInfo']),
 			removeSong(){
 				this.post.song = {};
 				this.post.isMusic = false;
@@ -78,6 +81,29 @@
 				uni.navigateBack();
 			},
 			submit(){
+				if(this.isEdit){
+					if(this.editPostInfo({ id : this.post.id, text: this.post.text })){
+						uni.showToast({
+							title: '修改成功！',
+							icon: 'success',
+							duration: 2000,
+							complete() {
+								uni.navigateBack();
+							}
+						})
+						return ;
+					}else{
+						uni.showToast({
+							title: '修改失败！',
+							icon: 'error',
+							duration: 2000,
+							complete() {
+								uni.navigateBack();
+							}
+						})
+					}
+					return ;
+				}
 				var currentDate = new Date();
 				var year = currentDate.getFullYear();
 				var month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
@@ -200,7 +226,8 @@
 			image{
 				width: 60px;
 				height: 60px;
-				border-radius: 8px;
+				border-top-left-radius: 8px;
+				border-bottom-left-radius: 8px;
 			}
 			
 			.info{

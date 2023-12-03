@@ -51,7 +51,7 @@
 				this.activeIndex = index;
 			},
 			goBack(){
-				uni.navigateBack();
+				uni.navigateBack()
 			}
 		}
 	}

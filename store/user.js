@@ -31,7 +31,7 @@ export default {
 			state.userinfo = {};
 			state.token = "";
 			console.log(uni.getStorageInfoSync());
-		}
+		},
     },
 
     actions:{

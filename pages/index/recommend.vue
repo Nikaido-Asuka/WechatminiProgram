@@ -10,7 +10,7 @@
 			</view>
 			
 			<view class="right">
-				<text>查看我的音乐DNA</text>
+				<text>查看我的音乐DNA</text
 				<uni-icons style="margin-top: 1px;" type="forward" color="gray" size="15"></uni-icons>
 			</view>
 		</view>
@@ -51,7 +51,11 @@
 		
 		<!-- 3.主体 -->
 		<view class="content">
-			<SwiperSong v-for="(item, index) in titleArr" :key="item.id" :title="item.title" :arrList="item.arrList"/>
+			<SwiperSong 
+				v-for="(item, index) in titleArr" 
+				:key="item.id" 
+				:title="item.title" 
+				:arrList="item.arrList"/>
 		</view>
 	</view>
 </template>
@@ -88,6 +92,18 @@ export default {
 				img: 'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg',
 				color: '#383eff',
 				info: '快听',
+			},{
+				id: '3',
+				title: '排行榜',
+				img: 'https://pic.imgdb.cn/item/65684686c458853aefd602ee.jpg',
+				color: '#7d4aab',
+				info: '排行榜'
+			},{
+				id: '4',
+				title: 'Hot',
+				img: 'https://pic.imgdb.cn/item/656557a3c458853aef80e493.jpg',
+				color: '#ff5339',
+				info: '百万收藏'
 			}],
 			titleArr: [{
 				id: '1',
@@ -98,12 +114,12 @@ export default {
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg'
 				},{
-					id: '2',
+					id: '3',
 					name: "I'm OK（Reimagined）",
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/652149acc458853aef689498.jpg'
 				},{
-					id: '3',
+					id: '2',
 					name: '蝴蝶',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/650d2e3cc458853aef2b93d9.jpg'
@@ -236,13 +252,7 @@ export default {
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6508e497204c2e34d3c6d452.jpg'
 				}]],
-			}],
-			
-			
-			
-			
-			
-			
+			}],			
 		}
 	},
 }
@@ -363,7 +373,7 @@ export default {
 						font-size: 20px;
 						background: none;
 						position: absolute;
-						left: 50px;
+						left: 45px;
 						bottom: 10px;
 					}
 				}

@@ -67,7 +67,6 @@
 			...mapState('song', ['song']),
 			progressPercent(){
 				if(this.song.currentTime === this.song.duration){
-					console.log("???")
 					return 0 + '%';
 				}
 				return (this.song.currentTime / this.song.duration) * 100 + '%';
@@ -133,7 +132,6 @@
 .bigbox{
 	
 	.img{
-		padding-bottom: 0px;
 		border-radius: 20px;
 		overflow: hidden;
 		width: 300px;

@@ -16,7 +16,7 @@
 		"style" :                                                                                    
 		{
 			"navigationBarTitleText": "编辑资料",
-			"navigationStyle": "default"
+			"navigationStyle": "custom"
 		}
 	}
         ,{
@@ -94,6 +94,24 @@
                 {
 					"navigationStyle": "custom",
 					"navigationBarTitleText": ""
+                }
+                
+                }
+                ,{
+                    "path" : "albumDetail/albumDetail",
+                    "style" :                                                                                    
+                {
+                    "navigationStyle": "custom",
+                    "navigationBarTitleText": ""
+                }
+                
+                }
+                ,{
+                    "path" : "sheetDetail/sheetDetail",
+                    "style" :                                                                                    
+                {
+                    "navigationStyle": "custom",
+                    "navigationBarTitleText": ""
                 }
                 
                 }

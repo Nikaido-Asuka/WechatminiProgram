@@ -21,16 +21,21 @@
 	    ...mapMutations('user', ['updateUserInfo', 'updateToken']),
 	    login(){
 		  const user = {
-		    id: '1',
+		    id: 1,
 		    username: 'Nikaido Asuka',
 		    avatar: 'https://pic.imgdb.cn/item/652368cac458853aef309984.jpg',
 			bgImg: 'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg',
+			sex: '男',
 		    focusNum: 16,
 		    fansNum: 16,
 		    firend: 189,
-		    visitorNum: 298
+		    visitorNum: 298,
+			birthday: '2003-06-04',
+			phoneNumber: '15310879053',
+			likeSongList: [1, 2, 3, 4, 5],
 		  }
-		  const token = "e123hu92ehhoiei1o2iu3i"
+		  const token = "e123hu92ehhoiei1o2iu3i";
+		  
 		  this.updateUserInfo(user);
 		  this.updateToken(token);
 	    }

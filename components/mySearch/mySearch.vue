@@ -33,7 +33,7 @@
 		methods:{
 			searchBoxHandler(){
 				uni.navigateTo({
-					url: '/subpages/searchDetail/searchDetail'
+					url: '/subpages/searchDetail/searchDetail?searchValue=' + this.searchSongArr[this.searchSongIndex]
 				})
 			},
 			change(){

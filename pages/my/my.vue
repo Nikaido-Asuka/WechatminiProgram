@@ -26,6 +26,6 @@
 
 <style lang="scss" scoped>
 .bigbox{
-	background-color: #2e2e2e;
+	background-color: #191919;
 }
 </style>

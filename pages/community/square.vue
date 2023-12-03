@@ -33,22 +33,50 @@
 			</view>
 			
 			<view class="buttom">
-				<view class="icon_box">
-					<uni-icons type="chat" size="22" color="gray"><text>18</text></uni-icons>
-					{{ item.commentNum }}
+				<view class="left">
+					<view class="icon_box">
+						<uni-icons type="chat" size="22" color="gray"><text>18</text></uni-icons>
+						{{ item.commentNum }}
+					</view>
+					
+					<view class="icon_box">
+						<uni-icons type="hand-up" size="22" color="gray"></uni-icons>
+						{{ item.likeNum }}
+					</view>
 				</view>
 				
-				<view class="icon_box">
-					<uni-icons type="hand-up" size="22" color="gray"></uni-icons>
-					{{ item.likeNum }}
+				<view class="right" @click="toggle('bottom', index)" >
+					<uni-icons type="more-filled" size="22" color="gray"></uni-icons>
 				</view>
 				
 			</view>
 			
 		</view>
 		
-		
 	</view>
+			
+			
+		<uni-popup ref="popup" background-color="#2c2c2c">
+			<view class="popup-content">
+				
+				<view class="operate_box" @click="editPost()">
+					<view class="head">
+						<uni-icons type="compose" size="30" color="#fcfcfc"></uni-icons>
+					</view>
+					
+					<text style="color: #fcfcfc; font-size: 12px;">编辑</text>
+				</view>
+				
+				<view class="operate_box">
+					<view class="head">
+						<uni-icons type="trash-filled" size="30" color="#fcfcfc"></uni-icons>
+					</view>
+					
+					<text style="color: #fcfcfc; font-size: 12px;">删除</text>
+				</view>
+				
+			</view>
+		</uni-popup>
 	</view>
 </template>
 
@@ -58,13 +86,27 @@
 		name: 'square',
 		data() {
 			return {
-				
+				type: '',
+				currentPostIndex: -1,
 			};
 		},
 		computed:{
 			...mapState('post', ['postsList']),
 		},
 		methods:{
+			editPost(){
+				uni.navigateTo({
+					url: '/subpages/postForm/postForm?post=' + JSON.stringify(this.postsList[this.currentPostIndex]) + '&isEdit=true',
+				})
+				
+				this.$refs.popup.close();
+			},
+			toggle(type, index){
+				this.type = type;
+				this.currentPostIndex = index;
+				console.log(this.currentPostIndex);
+				this.$refs.popup.open(type);
+			},
 			changeLike(index){
 				this.postsList[index].song.isLike = !this.postsList[index].song.isLike;
 				event.defaultPrevented();
@@ -79,23 +121,51 @@
 </script>
 
 <style scoped lang="scss">
+	
+.popup-content{
+	padding: 0px 20px;
+	padding-top: 20px;
+	z-index: 100;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 20px;
+	
+	.operate_box{
+		gap: 10px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		
+		
+		.head{
+			width: 50px;
+			height: 50px;
+			border-radius: 18px;
+			background-color: #3c3b3c;
+			text-align: center;
+			line-height: 50px;
+		}
+	}
+}
+
 .addPost{
 	position: fixed;
-	bottom: 20px;
+	bottom: 70px;
 	right: 20px;
-	width: 60px;
-	height: 60px;
+	width: 50px;
+	height: 50px;
 	border-radius: 50%;
 	background-color: #31c27c;
-	z-index: 100;
+	z-index: 20;
 	text-align: center;
-	line-height: 60px;
+	line-height: 50px;
 	
 }
 .item{
 	border-radius: 8px;
 	margin: 10px 10px;
-	height: 200px;
+	height: 180px;
 	background-color: #2e2e2e;
 	padding-bottom: 20px;
 	position: relative;
@@ -107,8 +177,8 @@
 		align-items: center;
 		
 		.avatar{
-			width: 50px;
-			height: 50px;
+			width: 40px;
+			height: 40px;
 			border-radius: 50%;
 		}
 		.head_info{
@@ -181,17 +251,25 @@
 			padding-top: 10px;
 			height: 20px;
 			display: flex;
-			justify-content: flex-start;
-
-			.icon_box{
-				padding: 3px 3px;
-				height: 24px;
-				width: 70px;
+			justify-content: space-between;
+			align-items: center;
+			
+			.left{
 				display: flex;
-				justify-content: flex-start;
-				align-items: center;
-				color: gray;
+				justify-content: flex-start;	
+				
+				
+				.icon_box{
+					padding: 3px 3px;
+					height: 24px;
+					width: 70px;
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+					color: gray;
+				}
 			}
+			
 		}
 	}
 }

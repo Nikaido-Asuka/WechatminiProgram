@@ -80,7 +80,7 @@
 						<uni-icons class="heart" size="25" type="heart-filled" color="#d94b47"></uni-icons>
 						<view class="left_info">
 							<text style="color: white; font-size: 18px;">我喜欢</text>
-							<text class="info">12首歌曲 3张专辑 8张歌单</text>
+							<text class="info">{{ userinfo.likeSongList.length }}首歌曲 3张专辑 8张歌单</text>
 						</view>
 					</view>
 					
@@ -118,6 +118,9 @@
 				
 			};
 		},
+		mounted(){
+			console.log(this.userinfo);
+		},
 		computed:{
 			...mapState('user', ['userinfo']),
 		},
@@ -127,11 +130,6 @@
 				const imgUrl = e.currentTarget.dataset.imgurl;
 				uni.previewImage({
 					urls: [imgUrl],
-				})
-			},
-			toCommunity(){
-				uni.navigateTo({
-					url: '/pages/community/community'
 				})
 			},
 			logout(){

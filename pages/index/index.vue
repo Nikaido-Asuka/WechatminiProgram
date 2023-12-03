@@ -18,9 +18,11 @@
 		
 		
 		<view class="content">
-			
 			<Recommend/>
-			
+		</view>
+		
+		<view class="music_bar">
+			<musicBar/>
 		</view>
 		
 	</view>
@@ -31,8 +33,9 @@
 	import Login from '@/components/user/Login.vue'
 	import Search from '@/components/mySearch/mySearch.vue'
 	import Recommend from '@/pages/index/recommend.vue'
+	import musicBar from '@/components/musicBar/musicBar.vue'
 	export default {
-		components: { Login, Recommend, Search },
+		components: { Login, Recommend, Search, musicBar },
 		data() {
 			return {
 				titleIndex: 0,
@@ -54,6 +57,7 @@
 
 <style scoped lang="scss">
 .container{
+	position: relative;
 	height: 200px;
 	padding-top: 50px;
 	
@@ -89,6 +93,13 @@
 
 	.content{
 		padding: 5px 15px;
+	}
+	
+	.music_bar{
+		left: 15px;
+		position: fixed;
+		bottom: 0px;
+		z-index: 10;
 	}
 }
 </style>

@@ -67,7 +67,7 @@
 
 <style lang="scss" scoped>
 .bigbox{
-	height: 300px;
+	padding-bottom: 350px;
 	background: linear-gradient(#185132, #2c2c2e);
 	
 	.content{

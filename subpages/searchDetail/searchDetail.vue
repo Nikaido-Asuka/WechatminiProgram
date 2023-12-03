@@ -45,7 +45,7 @@
 					<view class="title">{{ item1.name }}</view>
 					
 					<view class="song_list">
-						<view class="song_item" v-for="(item2, index) in item1.songList">
+						<view class="song_item" v-for="(item2, index) in item1.songList" :key="index">
 							<text class="index" :class="index < 3 ? 'index_active': ''">{{ index+1 }}</text>
 							<text>{{ item2 }}</text>
 						</view>
@@ -61,9 +61,12 @@
 
 <script>
 	export default {
+		onLoad(options){
+			this.searchValue = options.searchValue;
+		},
 		data() {
 			return {
-				searchValue: '普通朋友',
+				searchValue: '',
 				historyList: ['一念之间', '蝴蝶', '流沙（reimagined）', '不爱'],
 				hotList:[{
 					id: '1',

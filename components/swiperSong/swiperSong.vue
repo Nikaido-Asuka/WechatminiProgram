@@ -22,10 +22,10 @@
 				:class="{active_swiper_item: currentIndex === index1}" 
 				>
 				<view class="list">
-					<view class="item" v-for="(item2, index2) in item1" :key="index2">
+					<view class="item" v-for="(item2, index2) in item1" :key="index2" @click="toPlay(item2.id)">
 						
 						<view class="left">
-							<image @click="previewImg()" style="width: 55px; border-radius: 12px;" mode="widthFix" :src="item2.img"/>
+							<image style="width: 55px; border-radius: 12px;" mode="widthFix" :src="item2.img"/>
 						</view>
 						
 						<view class="right">
@@ -50,6 +50,11 @@
 			handleSwiperChange(e){
 				this.currentIndex = e.detail.current;
 				console.log(this.currentIndex);
+			},
+			toPlay(id){
+				uni.navigateTo({
+					url: '/pages/songDetail/songDetail?id=' + id,
+				})
 			}
 		},
 		data() {
@@ -107,13 +112,13 @@
 			.list{
 				display: flex;
 				flex-direction: column;
-				gap: 20px;
+				gap: 10rpx;
 				
 				.item{
 					display: flex;
 					justify-content: flex-start;
 					align-items: center;
-					gap: 25px;
+					gap: 10px;
 					
 					.right{
 						display: flex;

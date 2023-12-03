@@ -34,20 +34,24 @@
 			<!-- 广场 -->
 			<Square v-show="pageIndex === 0"></Square>
 			
+			
 			<!-- 关注 -->
 			<Focus v-show="pageIndex === 1"></Focus>
 		</view>
 		
-		
+		<view class="music_bar">
+			<musicBar/>
+		</view>
 	</view>
 </template>
 
 <script>
 	import Square from '@/pages/community/square.vue'
 	import Focus from '@/pages/community/focus.vue'
+	import musicBar from '@/components/musicBar/musicBar.vue'
 	export default {
 		name: 'community',
-		components:{ Square, Focus },
+		components:{ Square, Focus, musicBar },
 		data() {
 			return {
 				addPost: {},
@@ -91,7 +95,7 @@
 
 <style scoped lang="scss">
 .bigbox{
-	padding-bottom: 200px;
+	padding-bottom: 150px;
 	position: relative;
 	background-color: black;
 	
@@ -193,5 +197,11 @@
 			}
 		}
 	}
+}
+.music_bar{
+		left: 15px;
+		position: fixed;
+		bottom: 0px;
+		z-index: 10;
 }
 </style>
