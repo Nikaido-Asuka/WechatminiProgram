@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import moduleSong from "@/store/song.js";
 import moduleUser from "@/store/user.js"
 import modulePost from "@/store/post.js"
+import moduleSinger from "@/store/singer.js"
 
 Vue.use(Vuex)
 
@@ -12,6 +13,7 @@ const store =  new Vuex.Store({
         'song': moduleSong,
 		'user': moduleUser,
 		'post': modulePost,
+		'singer': moduleSinger,
     }
 }) 
 

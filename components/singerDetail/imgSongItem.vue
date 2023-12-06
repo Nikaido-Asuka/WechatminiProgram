@@ -1,14 +1,14 @@
 <template>
 	<view>
 		<uni-swipe-action>
-			<block v-for="(item, index) in songList" :key="item.id" >
+			<block v-for="(item, index) in songList.slice(0,3)" :key="item.id" >
 				<uni-swipe-action-item @click="open" :right-options="options">
 					<view class="item">
 							<view class="left">
 								<image :src="item.img"/>
 								<view class="left_info">
 									<text>{{ item.name }}</text>
-									<text class="info">{{ singer }} · {{ item.album }}</text>
+									<text class="info">{{ getSingerName }} · {{ item.album.name }}</text>
 								</view>
 							</view>
 							
@@ -22,7 +22,13 @@
 </template>
 
 <script>
+	import { mapState, mapGetters } from 'vuex'
 	export default {
+		computed:{
+			...mapState('singer', ['songList']),
+			...mapGetters('singer', ['getSingerName']),
+			
+		},
 		data() {
 			return {
 				options: [{
@@ -32,26 +38,6 @@
 						}
 					}
 				],
-				singer: '陶喆',
-				songList:[{
-					id: '1',
-					name: '流沙（Reimagined）',
-					album: '流沙（Reimagined）',
-					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg',
-					isVip: false,
-				},{
-					id: '3',
-					name: "I'm OK（Reimagined）",
-					album: "I'm OK（Reimagined）",
-					img: 'https://pic.imgdb.cn/item/652149acc458853aef689498.jpg',
-					isVip: false,
-				},{
-					id: '4',
-					name: '飞机场的十点半',
-					album: '陶喆同名专辑',
-					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6b95.jpg',
-					isVip: true,
-				}]
 			};
 		}
 	}

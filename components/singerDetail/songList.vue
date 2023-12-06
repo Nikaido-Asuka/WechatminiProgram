@@ -19,7 +19,7 @@
 		
 		<!-- 2.内容 -->
 		<view>
-			<songRow/>
+			<songRow v-if="songList.length !== 0" :searchList="searchList"/>
 		</view>
 		
 		
@@ -29,12 +29,22 @@
 
 <script>
 import songRow from '@/components/songRow/songRow.vue'
+import { mapState } from 'vuex'
 export default {
 	name: 'songList',
 	components: { songRow },
+	computed:{
+		...mapState('singer', ['songList']),
+		searchList(){
+			const searchList = {
+				isSheet: false,
+				songList: this.songList
+			}
+			return searchList;
+		}
+	},
 	data(){
 		return{
-			
 		}
 	}
 }

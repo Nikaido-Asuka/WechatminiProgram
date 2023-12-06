@@ -56,7 +56,7 @@
 	</view>
 			
 			
-		<uni-popup ref="popup" background-color="#2c2c2c">
+		<uni-popup ref="popup" background-color="#2c2c2c" @change="stateChange">
 			<view class="popup-content">
 				
 				<view class="operate_box" @click="editPost()">
@@ -91,14 +91,19 @@
 			};
 		},
 		computed:{
-			...mapState('post', ['postsList']),
+			...mapState('post', ['postsList', 'isShow']),
 		},
 		methods:{
+			...mapMutations('post', ['changeIsShow']),
+			stateChange(e){
+				const { show } = e;
+				this.changeIsShow(!show);
+			},
 			editPost(){
 				uni.navigateTo({
 					url: '/subpages/postForm/postForm?post=' + JSON.stringify(this.postsList[this.currentPostIndex]) + '&isEdit=true',
 				})
-				
+				this.changeIsShow(true);
 				this.$refs.popup.close();
 			},
 			toggle(type, index){
@@ -125,7 +130,6 @@
 .popup-content{
 	padding: 0px 20px;
 	padding-top: 20px;
-	z-index: 100;
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;

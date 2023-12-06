@@ -18,6 +18,7 @@
 </template>
 
 <script>
+	import request from '@/utils/request.js'
 	import { mapState, mapMutations } from 'vuex'
 	import Song from '@/pages/songDetail/song.vue'
 	import Lyric from '@/pages/songDetail/lyric.vue'
@@ -31,7 +32,7 @@
 		},
 		onLoad(options){
 			console.log(options);
-			this.fuckGetSong(options.id);	
+			this.fuckGetSong(Number(options.id));
 		},
 		computed:{
 			...mapState('song', ['song']),

@@ -2,24 +2,28 @@
 	<view class="bigbox">
 		<!-- 1.封面 -->
 		  <view class="img">
-		   <image @longtap="previewImg" :data-imgUrl="song.img" mode="widthFix" :src="song.img"></image>
+		   <image @longtap="previewImg" :data-imgUrl="song.album.img" mode="widthFix" :src="song.img"></image>
 		  </view>
 		  
 		  <!-- 2.歌曲信息 -->
 		  <view class="info">
 		   <!-- 2.1歌名 -->
 		   <view class="head">
-		    <text class="name">{{ song.songName }}</text>
+		    <text class="name">{{ song.name }}</text>
 		    <view class="icon_box">
 		     <uni-icons type="heart" color="gray" size="30"></uni-icons>
 		    </view>
 		   </view>
 		   
 		   <!-- 2.2歌手 -->
-		   <text class="singer">{{ song.singerName }}</text>
+		   <view class="second">
+			   <text class="singer" @click="toSingerDetail">{{ song.singer.name }}</text>
+			   <text class="album" @click="toAlbumDetail">{{ song.album.name }}</text>
+		   </view>
+		   
 		   
 		   <!-- 2.3歌词 -->
-		   <text class="lyric">{{ song.lyrics[song.currentLyricIndex].text }}</text>
+		   <text class="lyric">{{ song.tbLyrics[song.currentLyricIndex].text }}</text>
 		   
 		  </view>
 		  
@@ -55,7 +59,7 @@
 </template>
 
 <script>
-	import { mapState, mapMutations} from 'vuex'
+	import { mapState, mapMutations } from 'vuex'
 	
 	export default {
 		data(){
@@ -74,6 +78,19 @@
 		},
 		methods:{
 			...mapMutations('song', ['updateLyricIndex', 'playChange', 'play', 'playOver', 'toDesignate', 'cutToNext']),
+			toSingerDetail(){
+				uni.navigateTo({
+					url: '/subpages/singerDetail/singerDetail?id=' + this.song.singer.id,
+				})
+			},
+			
+			
+			toAlbumDetail(){
+				uni.navigateTo({
+					url: '/subpages/albumDetail/albumDetail?id=' + this.song.album.id,
+				})
+			},
+		
 			previewImg(e){
 				const imgUrl = e.currentTarget.dataset.imgurl;
 				uni.previewImage({
@@ -107,12 +124,12 @@
 					 this.song.currentTime = Math.round(clickPositionRatio * this.song.duration); // 使用占比更新当前播放时间
 					 console.log(this.song.currentTime);
 						 
-						if(this.song.currentTime >= this.song.lyrics[this.song.lyrics.length - 1].startTime){
-							this.song.currentLyricIndex = this.song.lyrics.length - 1;
+						if(this.song.currentTime >= this.song.tbLyrics[this.song.tbLyrics.length - 1].startTime){
+							this.song.currentLyricIndex = this.song.tbLyrics.length - 1;
 						}else{
-							for (let i = 0; i < this.song.lyrics.length - 1; i++) {
-								if (this.song.currentTime >= this.song.lyrics[i].startTime && this.song.currentTime < this.song.lyrics[i + 1].startTime) {
-									this.song.currentTime = this.song.lyrics[i].startTime;
+							for (let i = 0; i < this.song.tbLyrics.length - 1; i++) {
+								if (this.song.currentTime >= this.song.tbLyrics[i].startTime && this.song.currentTime < this.song.tbLyrics[i + 1].startTime) {
+									this.song.currentTime = this.song.tbLyrics[i].startTime;
 									this.updateLyricIndex(i);
 									break;
 								}
@@ -156,9 +173,17 @@
 				font-size: 24px;
 			}
 		}
-		.singer{
+		.second{
+			display: flex;
+			justify-content: flex-start;
+			flex-direction: column;
 			color: gray;
+			
+			.singer{
+				color: gray;
+			}
 		}
+		
 		.lyric{
 			color: white;
 			opacity: 0.8;

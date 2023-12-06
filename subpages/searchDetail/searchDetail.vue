@@ -19,7 +19,7 @@
 			<view class="box">
 				<view class="title">
 					<text>搜索历史</text>
-					<uni-icons color="gray" size="24" type="trash-filled"></uni-icons>
+					<uni-icons @click="clearlAll" color="gray" size="24" type="trash-filled"></uni-icons>
 				</view>
 				
 				<view class="list"> 
@@ -85,9 +85,15 @@
 		},
 		methods: {
 			search(e){
+				uni.navigateTo({
+					url: '/subpages/resultDetail/resultDetail?query=' + this.searchValue,
+				})
 				this.historyList.unshift(e.value);
 				this.searchValue = '';
 			},
+			clearlAll(){
+				this.historyList = [];
+			}
 		}
 	}
 </script>

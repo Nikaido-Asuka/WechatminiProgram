@@ -2,7 +2,11 @@
 	<view class="bigbox">
 		<!-- 1.歌手头像盒子 -->
 		<view class="singer_img">
-			<image mode="widthFix" src="https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg"></image>
+			<view class="return" @click="goBack">
+				<uni-icons type="left" color="white" size="25"></uni-icons>
+			</view>
+			
+			<image mode="widthFix" :src="singerInfo.img"></image>
 		</view>
 		
 		<!-- 2.歌手信息盒子 -->
@@ -10,14 +14,14 @@
 			
 			<!-- 2.1姓名 -->
 			<view class="head">
-				<text>陶喆</text>
+				<text>{{ singerInfo.name }}</text>
 				<view>已关注</view>
 			</view>
 			
 			<!-- 2.2其他信息 -->
 			<view class="other_info">
 				<text>入驻艺人</text>
-				<text>0 关注 &nbsp;&nbsp;&nbsp; 201.8万粉丝</text>
+				<text>{{ singerInfo.focusNum }} 关注 &nbsp;&nbsp;&nbsp; {{ singerInfo.fansNum }}万粉丝</text>
 				<view class="buttom">
 					<view class="item">扑通小组</view>
 					<view class="item">乐迷勋章</view>
@@ -40,7 +44,7 @@
 		<view class="content_box">
 			
 			<!-- 1.百科 -->
-			<singerInfo v-show="titleIndex === 0"/>
+			<singerInfo v-if="hasSingerInfo" :singerInfo="singerInfo" v-show="titleIndex === 0"/>
 			   
 			<!-- 2.歌曲 -->
 			<songList v-show="titleIndex === 1"/>
@@ -68,20 +72,45 @@
 </template>
 
 <script>
+	import request from '@/utils/request.js'
 	import songList from '@/components/singerDetail/songList.vue'
 	import singerInfo from '@/components/singerDetail/singerInfo.vue'
 	import Album from '@/components/sheet/sheet.vue'
+	import { mapMutations } from 'vuex'
 	export default {
 		components: { songList, singerInfo, Album },
 		data() {
 			return {
 				titleIndex: 1,
-				titleArr: ['百科', '歌曲', '专辑', '视频', '歌单']
+				titleArr: ['百科', '歌曲', '专辑', '视频', '歌单'],
+				singerInfo: {},
 			};
 		},
+		computed: {
+		    hasSingerInfo() {
+		      return Object.keys(this.singerInfo).length !== 0;
+		    }
+		},
+		onLoad(options) {
+			this.getSingerInfo(options.id);
+		},
 		methods:{
+			...mapMutations('singer', ['updateSinger', 'updateSongList']),
+			getSingerInfo(id){
+				request({
+					url: '/qqmusic/singer/getSingerInfo/' + id,
+					method: 'GET',
+				}).then((response)=>{
+					this.updateSinger(response.data.singer);
+					this.singerInfo = response.data.singer;
+					this.updateSongList(response.data.songList);
+				}).catch(err => console.log(err));
+			},
 			changePage(index){
 				this.titleIndex = index;
+			},
+			goBack(){
+				uni.navigateBack();
 			}
 		}
 	}
@@ -91,9 +120,16 @@
 .bigbox{
 	padding-bottom: 100px;
 	
+	
 	.singer_img{
 		margin-top: -40px;
 		position: relative;
+		
+		.return{
+			position: absolute;
+			top: 95px;
+			left: 20px;
+		}
 		
 		image{
 			width: 380px;

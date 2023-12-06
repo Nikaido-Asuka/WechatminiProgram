@@ -1,6 +1,5 @@
 <template>
 	<view class="container">
-		<Login v-if="!token"/>
 		
 		<view class="head">
 			<view 
@@ -14,7 +13,10 @@
 		</view>
 		
 		
-		<Search/>
+		<view class="search">
+			<Search/>
+		</view>
+	
 		
 		
 		<view class="content">
@@ -59,16 +61,21 @@
 .container{
 	position: relative;
 	height: 200px;
-	padding-top: 50px;
+	padding-top: 60px;
 	
 	.head{
-		height: 40px;
+		width: 360px; 
+		height: 80px;
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
 		gap: 20px;
 		padding: 0 15px;
-		position: relative;
+		padding-top: 30px;
+		position: fixed;
+		top: 0px;
+		z-index: 20;
+		background-color: #191919;
 		
 		.title{
 			font-size: 20px;
@@ -88,6 +95,10 @@
 			position: absolute;
 			transition: all 0.5s;
 		}
+	}
+	
+	.search{
+		margin-top: 40px;
 	}
 	
 

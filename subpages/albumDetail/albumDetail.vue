@@ -57,7 +57,7 @@
 			
 			<!-- 3.2歌曲列表部分 -->
 			<view class="content_list">
-				<songRow :songList="album.songList"/>
+				<songRow :searchList="album"/>
 			</view>
 			
 			<!-- 3.3歌手其他专辑 -->
@@ -99,10 +99,11 @@
 		data() {
 			return {
 				album:{
-					id: 4,
+					id: 3,
 					name: "I'm OK（Reimagined）",
 					singer: '陶喆',
 					color: '#b14a08',
+					isSheet: true,
 					songList:[{
 						id: '3',
 						name: "I'm OK（Reimagined）",
@@ -249,6 +250,10 @@
 				display: flex;
 				gap: 10px;
 			}
+		}
+		
+		.content_list{
+			margin-top: 20px;
 		}
 		
 		.other_album{

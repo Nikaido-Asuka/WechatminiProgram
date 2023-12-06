@@ -2,7 +2,7 @@
 	<view class="container">
 		
 		<!-- 1.用户行 -->
-		<view class="user_box">
+		<view class="user_box" v-if="token">
 			<view class="left">
 				<image mode="widthFix" :src="userinfo.avatar"/>
 				<text>{{ userinfo.username }}</text>
@@ -68,7 +68,7 @@ import SwiperSong from '@/components/swiperSong/swiperSong.vue'
 export default {
 	components: { imgSongItem, SwiperSong },
 	computed:{
-		...mapState('user', ['userinfo']),
+		...mapState('user', ['userinfo', 'token']),
 	},
 	data(){
 		return {
@@ -81,173 +81,173 @@ export default {
 				}
 			],
 			songBox:[{
-				id: '1',
+				id: 1,
 				title: 'Daily 30',
 				img: 'https://pic.imgdb.cn/item/652149acc458853aef689498.jpg',
 				color: '#f8da7c',
 				info: '每日30首'
 			},{
-				id: '2',
+				id: 2,
 				title: '快听',
 				img: 'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg',
 				color: '#383eff',
 				info: '快听',
 			},{
-				id: '3',
+				id: 3,
 				title: '排行榜',
 				img: 'https://pic.imgdb.cn/item/65684686c458853aefd602ee.jpg',
 				color: '#7d4aab',
 				info: '排行榜'
 			},{
-				id: '4',
+				id: 4,
 				title: 'Hot',
 				img: 'https://pic.imgdb.cn/item/656557a3c458853aef80e493.jpg',
 				color: '#ff5339',
 				info: '百万收藏'
 			}],
 			titleArr: [{
-				id: '1',
+				id: 1,
 				title: '听「一念之间」的也会听',
 				arrList:[[{
-					id: '1',
+					id: 1,
 					name: '流沙（Reimagined）',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg'
 				},{
-					id: '3',
+					id: 2,
 					name: "I'm OK（Reimagined）",
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/652149acc458853aef689498.jpg'
 				},{
-					id: '2',
+					id: 6,
 					name: '蝴蝶',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/650d2e3cc458853aef2b93d9.jpg'
 				}],[{
-					id: '4',
+					id: 3,
 					name: '就是爱你',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/65083df1204c2e34d3a4e84e.jpg'
 				},{
-					id: '5',
+					id: 8,
 					name: '太美丽',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6508e497204c2e34d3c6d452.jpg'
 				},{
-					id: '6',
+					id: 10,
 					name: '飞机场的十点半',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6b95.jpg'
 				}],[{
-					id: '7',
+					id: 11,
 					name: '爱很简单',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6b95.jpg'
 				},{
-					id: '8',
+					id: 7,
 					name: '黑色柳丁',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/650d2e3cc458853aef2b93d9.jpg'
 				},{
-					id: '9',
+					id: 9,
 					name: '不爱',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6508e497204c2e34d3c6d452.jpg'
 				}]],
 			}, {
-				id: '2',
+				id: 2,
 				title: '红心歌曲预定',
 				arrList:[[{
-					id: '10',
+					id: 13,
 					name: '大海',
 					singer: '张雨生',
 					img: 'https://pic.imgdb.cn/item/656557aac458853aef80f49c.jpg'
 				},{
-					id: '11',
+					id: 14,
 					name: "宁可让我苦",
 					singer: '张雨生',
 					img: 'https://pic.imgdb.cn/item/656557aac458853aef80f49c.jpg'
 				},{
-					id: '3',
+					id: 4,
 					name: '爱是个什么东西',
 					singer: '陶喆',
-					img: 'https://pic.imgdb.cn/item/650d2e3cc458853aef2b93d9.jpg'
+					img: 'https://pic.imgdb.cn/item/65083df1204c2e34d3a4e84e.jpg'
 				}],[{
-					id: '12',
+					id: 12,
 					name: '口是心非',
 					singer: '张雨生',
 					img: 'https://pic.imgdb.cn/item/656557acc458853aef80f8a7.jpg'
 				},{
-					id: '5',
+					id: 9,
 					name: '不爱',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6508e497204c2e34d3c6d452.jpg'
 				},{
-					id: '6',
+					id: 13,
 					name: '望春风',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6b95.jpg'
 				}],[{
-					id: '7',
+					id: 11,
 					name: '爱很简单',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6b95.jpg'
 				},{
-					id: '8',
+					id: 14,
 					name: '月亮代表谁的心',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/650d2e3cc458853aef2b93d9.jpg'
 				},{
-					id: '9',
+					id: 9,
 					name: '不爱',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6508e497204c2e34d3c6d452.jpg'
 				}]],
 			}, {
-				id: '3',
+				id: 3,
 				title: '大家都在听',
 				arrList:[[{
-					id: '13',
+					id: 15,
 					name: 'カメレオン (变色龙)',
 					singer: 'King Gnu',
 					img: 'https://pic.imgdb.cn/item/656557a3c458853aef80e51e.jpg'
 				},{
-					id: '14',
+					id: 16,
 					name: "カナタハルカ (遥远的彼方)",
 					singer: 'RADWIMPS',
 					img: 'https://pic.imgdb.cn/item/656557b0c458853aef810109.jpg'
 				},{
-					id: '15',
+					id: 17,
 					name: '虹',
 					singer: '菅田将晖',
 					img: 'https://pic.imgdb.cn/item/656557b6c458853aef810e45.jpg'
 				}],[{
-					id: '16',
+					id: 18,
 					name: '夕烧けの歌',
 					singer: '近藤真彦',
 					img: 'https://pic.imgdb.cn/item/656557a3c458853aef80e4c1.jpg'
 				},{
-					id: '17',
+					id: 19,
 					name: '我期待',
 					singer: '张雨生',
 					img: 'https://pic.imgdb.cn/item/656557a3c458853aef80e493.jpg'
 				},{
-					id: '6',
-					name: '飞机场的十点半',
-					singer: '陶喆',
-					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6b95.jpg'
+					id: 20,
+					name: "One Summery's Day",
+					singer: '久石让',
+					img: "https://pic.imgdb.cn/item/656d6f4ec458853aeff08291.jpg",
 				}],[{
-					id: '7',
+					id: 11,
 					name: '爱很简单',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6b95.jpg'
 				},{
-					id: '8',
+					id: 7,
 					name: '黑色柳丁',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/650d2e3cc458853aef2b93d9.jpg'
 				},{
-					id: '9',
+					id: 9,
 					name: '不爱',
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6508e497204c2e34d3c6d452.jpg'
@@ -388,6 +388,7 @@ export default {
 	
 	.content{
 		margin-top: 20px;
+		padding-bottom: 50px;
 	}
 }
 </style>

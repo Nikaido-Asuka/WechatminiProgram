@@ -19,7 +19,7 @@
 			<view class="panel">
 				<text class="title">推荐歌手</text>
 				<scroll-view class="singer_list" scroll-x="true">
-					<view class="singer_item" v-for="(item, index) in singerList" :key="item.id" :style="{ background: 'linear-gradient(' + item.color1 + ',' + item.color2 +')', }">
+					<view class="singer_item" v-for="(item, index) in singerList" :key="item.id" @click="toSingerDetail(item.id)" :style="{ background: 'linear-gradient(' + item.color1 + ',' + item.color2 +')', }">
 						<view class="item_content">
 							<image class="img" :src="item.img"></image>
 							<text class="name">{{ item.name }}</text>
@@ -32,14 +32,17 @@
 			
 			
 			<!-- 广场 -->
-			<Square v-show="pageIndex === 0"></Square>
+			<view class="square">
+				<Square v-show="pageIndex === 0"></Square>
+			</view>
+			
 			
 			
 			<!-- 关注 -->
 			<Focus v-show="pageIndex === 1"></Focus>
 		</view>
 		
-		<view class="music_bar">
+		<view v-show="isShow" class="music_bar">
 			<musicBar/>
 		</view>
 	</view>
@@ -49,9 +52,13 @@
 	import Square from '@/pages/community/square.vue'
 	import Focus from '@/pages/community/focus.vue'
 	import musicBar from '@/components/musicBar/musicBar.vue'
+	import { mapState } from 'vuex'
 	export default {
 		name: 'community',
 		components:{ Square, Focus, musicBar },
+		computed:{
+			...mapState('post', ['isShow']),
+		},
 		data() {
 			return {
 				addPost: {},
@@ -85,9 +92,13 @@
 			};
 		},
 		methods:{
-			
 			changePage(index){
 				this.pageIndex = index;
+			},
+			toSingerDetail(id){
+				uni.navigateTo({
+					url: '/subpages/singerDetail/singerDetail?id=' + id,
+				})
 			}
 		}
 	}
@@ -195,6 +206,10 @@
 					}
 				}
 			}
+		}
+		
+		.square{
+			z-index: 20!important;
 		}
 	}
 }

@@ -3,8 +3,8 @@
 		<!-- 1.头部 -->
 		  <view class="head">
 		   <view class="left">
-		    <text class="name">{{ song.songName }}</text>
-		    <text class="singer">{{ song.singerName }} &nbsp;&nbsp;&nbsp;&nbsp;制作团队 > </text>
+		    <text class="name">{{ song.name }}</text>
+		    <text class="singer">{{ song.singer.name }} &nbsp;&nbsp;&nbsp;&nbsp;制作团队 > </text>
 		   </view>
 		   
 		   <view class="right">
@@ -21,8 +21,8 @@
 				scroll-y="true"
 				scroll-with-animation="true"
 				>
-			   <text 
-				   v-for="(item, index) in song.lyrics" 
+			   <text
+				   v-for="(item, index) in song.tbLyrics" 
 				   :key="index" class="lyric_item" 
 				   :class="index === song.currentLyricIndex ? 'lyric_active' : '' " 
 				   @tap="changeLyric(index)"

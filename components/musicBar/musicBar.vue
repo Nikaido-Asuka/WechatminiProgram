@@ -1,10 +1,10 @@
 <template>
-  <view class="container" :style="{ backgroundColor: song.color }">
+  <view class="container" :style="{ backgroundColor: song.album.color }">
 	  
     <view class="content">
       <view class="left" @click="toSongDetail">
-        <image mode="widthFix" :src="song.img" />
-        <text class="lyric">{{ song.lyrics[song.currentLyricIndex].text }}</text>
+        <image :src="song.album.img" />
+        <text class="lyric">{{ song.tbLyrics[song.currentLyricIndex].text }}</text>
       </view>
       <view class="right">
         <view class="circle">
@@ -56,57 +56,62 @@ export default {
   width: 340px;
   height: 50px;
   border-radius: 30px;
-  overflow: hidden;
-}
-
-.content {
-  margin-top: -5px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 30px;
-}
-
-.left {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-
-  image {
-    width: 60px;
+  
+  .content {
+    margin-top: -5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+	
+	.left {
+	  display: flex;
+	  justify-content: flex-start;
+	  align-items: center;
+	  gap: 10px;
+	
+		  image {
+			height: 60px;
+			width: 60px;
+			margin-top: -10px;
+		  }
+	
+	  .lyric {
+	    font-size: 15px;
+	    width: 150px;
+	    color: white;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    text-overflow: ellipsis;
+	  }
+	}
+	
+	.right {
+	  display: flex;
+	  justify-content: space-around;
+	  align-items: center;
+	  gap: 20px;
+	
+	  .circle {
+	    width: 25px;
+	    height: 25px;
+	    border-radius: 50%;
+	    border: 2px solid white;
+	
+	    .icon {
+	      width: 15px;
+	      position: relative;
+	      left: 5px;
+	      top: 3px;
+	    }
+	  }
+	}
+	
   }
-
-  .lyric {
-    font-size: 15px;
-    width: 150px;
-    color: white;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 }
 
-.right {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 20px;
 
-  .circle {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    border: 2px solid white;
 
-    .icon {
-      width: 15px;
-      position: relative;
-      left: 5px;
-      top: 3px;
-    }
-  }
-}
 
 .none{
 	height: 30px;

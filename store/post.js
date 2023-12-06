@@ -2,6 +2,7 @@ export default {
     namespaced: true,
 
     state: () => ({
+		isShow: true,
 		postsList:[{
 			id: '3',
 			isStar: false,
@@ -55,11 +56,24 @@ export default {
 
 
     mutations: {
+		changeIsShow(state, bool){
+			console.log(bool)
+			state.isShow = bool;
+		},
+		
 		addPost(state, post){
 			post.likeNum = 0;
 			post.commentNum = 0;
 			post.isStar = false;
 			state.postsList.unshift(post);
+			uni.showToast({
+				title: '添加成功！',
+				icon: 'success',
+				duration: 2000,
+				complete() {
+					uni.navigateBack();
+				}
+			})
 		},
 		
 		

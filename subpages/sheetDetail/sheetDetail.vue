@@ -36,7 +36,7 @@
 			
 			<!-- 3.2歌曲列表部分 -->
 			<view class="content_list">
-				<songRow :songList="sheet.songList"/>
+				<songRow :searchList="sheet"/>
 			</view>
 		</view>
 		
@@ -68,6 +68,7 @@
 					name: '陶喆',
 					playNum: 4931,
 					bgImg: 'https://pic.imgdb.cn/item/652368cac458853aef309984.jpg',
+					isSheet: true,
 					songList:[{
 						id: 3,
 						name: "I'm OK（Reimagined）",

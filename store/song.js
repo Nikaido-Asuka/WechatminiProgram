@@ -1,3 +1,4 @@
+import request from '@/utils/request.js'
 export default {
     namespaced: true,
 
@@ -5,7 +6,12 @@ export default {
         songList:[{
 			id: 1,
 			songName: '流沙（Reimagined）',
-			singerName: '陶喆',
+			album: '流沙（Reimagined）',
+			singer:{
+				id: 1,
+				name: '陶喆',
+				img: 'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg'
+			},
 			color: '#d2962e',
         	currentTime: 0,
         	duration: 291,
@@ -56,21 +62,27 @@ export default {
         },{
 			id: 2,
 			songName: "One Summery's Day",
+			album: 'ENCORE（安可曲）',
 			singerName: '久石让',
-			color: '#b1b1b1',
+			color: '#75221b',
 			currentTime: 0,
 			duration: 269,
 			intervalId: null, // setInterval返回的定时器ID
 			isPlay: false,
 			currentLyricIndex: 0,
 			songContext : uni.createInnerAudioContext(),
-			img: "https://pic.imgdb.cn/item/650d2e3cc458853aef2b93d9.jpg",
+			img: "https://pic.imgdb.cn/item/656d6f4ec458853aeff08291.jpg",
 			audio: 'https://3wt.music.eduingame.cn/2023/09-21/54364ff93c304cbcb6832577511ae9f03wcn474791.mp3',
 			lyrics:[{ text: '纯音乐 暂无歌词', startTime: 0}]
 		},{
 			id: 3,
 			songName: "I'm OK（Reimagined）",
-			singerName: '陶喆',
+			album: "I'm OK（Reimagined）",
+			singer:{
+				id: 1,
+				name: '陶喆',
+				img: 'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg'
+			},
 			color: '#b14a08',
 			currentTime: 0,
 			duration: 245,
@@ -118,6 +130,7 @@ export default {
 		},{
 			id: 5,
 			songName: '大海',
+			album: '大海',
 			singerName: '张雨生',
 			color: '#d2962e',
 			currentTime: 0,
@@ -134,7 +147,12 @@ export default {
 		},{
 			id: 4,
 			songName: '爱是个什么东西',
-			singerName: '陶喆',
+			album: '太平盛世',
+			singer:{
+				id: 1,
+				name: '陶喆',
+				img: 'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg'
+			},
 			color: '#8f380a',
 			currentTime: 0,
 			duration: 284,
@@ -150,6 +168,7 @@ export default {
 		},{
 			id: 6,
 			songName: '爱要怎么说出口',
+			album: '约定',
 			singerName: '赵传',
 			color: '#d2962e',
 			currentTime: 0,
@@ -163,21 +182,90 @@ export default {
 			lyrics:[
 				{ text: '爱要怎么说出口 -- 赵传', startTime: 2 }
 			]
+		},{
+			id: 18,
+			songName: '蝴蝶',
+			album: '黑色柳丁',
+			singer:{
+				id: 1,
+				name: '陶喆',
+				img: 'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg'
+			},
+			color: '#00d6ca',
+			currentTime: 0,
+			duration: 283,
+			intervalId: null,
+			isPlay: false,
+			currentLyricIndex: 0,
+			songContext : uni.createInnerAudioContext(),
+			img: 'https://pic.imgdb.cn/item/650d2e3cc458853aef2b93d9.jpg',
+			audio: 'https://3wt.music.eduingame.cn/2023/12-04/4f9a437fc3f141f9a2331ece6b45568f3wcn474791.ogg',
+			lyrics:[
+				{ text: '蝴蝶 -- 陶喆', startTime: 0 },
+				{ text: '当这世界已经准备将我遗弃', startTime: 1},
+				{ text: '像一个伤兵 被留在孤独荒野里', startTime: 6},
+				{ text: '开始怀疑我存在有没有意义', startTime: 12},
+				{ text: '在别人眼里我似乎变成了隐形', startTime: 19},
+				{ text: '难道失败就永远翻不了身', startTime: 25},
+				{ text: '谁来挽救坠落的灵魂', startTime: 32},
+				{ text: '每次一想到你 心里好平静', startTime: 38},
+				{ text: '就像一只蝴蝶飞过废墟', startTime: 44},
+				{ text: '我又能活下去 我又找回勇气', startTime: 50},
+				{ text: '你的爱像氧气帮忙我呼吸 我又能呼吸', startTime: 57},
+				{ text: '我又能呼吸', startTime: 70},
+				{ text: '你就是不愿意放弃', startTime: 74},
+				{ text: '生命中充满乱七八糟的问题', startTime: 78},
+				{ text: '像走在没有出口的那个迷宫里', startTime: 84},
+				{ text: '一次又一次只会用接口逃避', startTime: 90},
+				{ text: '怎么你从来没对我彻底的死心', startTime: 98},
+				{ text: '我有何德何能值得你珍惜', startTime: 105},
+				{ text: '为何你对我有求必应', startTime: 111},
+				{ text: '每次一想到你 像雨过天晴', startTime: 116},
+				{ text: '看见一只蝴蝶飞过废墟', startTime: 122},
+				{ text: '是那么的美丽', startTime: 129},
+				{ text: '就像一个奇迹', startTime: 132},
+				{ text: '让我从倒下的地方站起', startTime: 135},
+				{ text: '只要一看见你就觉得安心', startTime: 142},
+				{ text: '你看着我的眼没有怀疑', startTime: 149},
+				{ text: '你对我的相信 让我又能重生', startTime: 155},
+				{ text: '不管世界多冷我还有你 我有你', startTime: 162},
+				{ text: '爱我这样的人对你来说不容易', startTime: 171},
+				{ text: '我的痛苦你也经历', startTime: 177},
+				{ text: '你是唯一 陪我到天堂与地狱', startTime: 181},
+				{ text: '每次一想到你 像雨过天晴', startTime: 191},
+				{ text: '看见一只蝴蝶飞过了废墟', startTime: 198},
+				{ text: '我能撑得下去 我会忘了过去', startTime: 204},
+				{ text: '是你让我找回新的生命', startTime: 210},
+				{ text: 'Yeah 每次一见到你 就心存感激', startTime: 217},
+				{ text: '现在我能坦然面对自己', startTime: 224},
+				{ text: '我会永远珍惜', startTime: 230},
+				{ text: '我会永远爱你', startTime: 233},
+				{ text: '在我心底的你位置没有人能代替', startTime: 236},
+				{ text: '你就是那唯一', startTime: 249},
+			]
 		}],
 		song: {
-			id: '3',
+			id: 2,
 			songName: "I'm OK（Reimagined）",
-			singerName: '陶喆',
-			color: '#b14a08',
+			album: {
+				id: 3,
+				name: "I'm OK（Reimagined）",
+				img: 'https://pic.imgdb.cn/item/652149acc458853aef689498.jpg',
+				color: '#b14a08',
+			},
+			singer:{
+				id: 1,
+				name: '陶喆',
+				img: 'https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg'
+			},
 			currentTime: 0,
 			duration: 245,
 			intervalId: null,
 			isPlay: false,
 			currentLyricIndex: 0,
 			songContext : uni.createInnerAudioContext(),
-			img: 'https://pic.imgdb.cn/item/652149acc458853aef689498.jpg',
 			audio: 'https://3wt.music.eduingame.cn/2023/11-30/f9a508b84b5e40bda617d7381da3cde13wcn474791.mp3',
-			lyrics:[
+			tbLyrics:[
 				{ text: "I'm OK(Reimagined) -- 陶喆(David Tao)", startTime: 2},
 				{ text: 'Sorry我不在 请在b声后留言', startTime: 23},
 				{ text: '我在忙着放空 请你允许我飞在梦里', startTime: 28},
@@ -219,11 +307,22 @@ export default {
     mutations: {
 		// 根据id获得歌曲
 		getSong(state, id){
-			state.songList.map( item => {
-				if(item.id === id){
-					state.song = item;
-				}
-			})
+			if(id === state.song.id){
+				return ;
+			}
+			state.song.songContext.stop();
+			clearInterval(state.song.intervalId);
+			state.song.isPlay = false;
+			request({
+				url: '/qqmusic/song/' + id,
+				method: 'GET'
+			}).then((response) => {
+				const { data } = response;
+				console.log(data);
+				state.song = data.song;
+				state.song = { ...state.song, singer: data.singer, album: data.album, currentLyricIndex: 0, songContext : uni.createInnerAudioContext(), intervalId: null, isPlay: false, currentTime: 0,}
+				console.log(state.song);
+			}).catch(err => console.log(err));
 		},
 		
 		cutToNext(state){
@@ -245,7 +344,7 @@ export default {
 		// 修改歌词索引和时间
 		updateLyricIndex(state, index) {
 		    state.song.currentLyricIndex = index;
-			state.song.currentTime = state.song.lyrics[state.song.currentLyricIndex].startTime;
+			state.song.currentTime = state.song.tbLyrics[state.song.currentLyricIndex].startTime;
 			state.song.songContext.seek(state.song.currentTime);
 		},
 		
@@ -269,8 +368,8 @@ export default {
 		        return;
 		      } else {
 		        if (
-		          state.song.currentLyricIndex < state.song.lyrics.length - 1 &&
-		          state.song.currentTime >= state.song.lyrics[state.song.currentLyricIndex + 1].startTime
+		          state.song.currentLyricIndex < state.song.tbLyrics.length - 1 &&
+		          state.song.currentTime >= state.song.tbLyrics[state.song.currentLyricIndex + 1].startTime
 		        ) {
 		          state.song.currentLyricIndex += 1;
 		        }

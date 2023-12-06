@@ -80,7 +80,7 @@
 						<uni-icons class="heart" size="25" type="heart-filled" color="#d94b47"></uni-icons>
 						<view class="left_info">
 							<text style="color: white; font-size: 18px;">我喜欢</text>
-							<text class="info">{{ userinfo.likeSongList.length }}首歌曲 3张专辑 8张歌单</text>
+							<text class="info">{{ userinfo.songList.length }}首歌曲 3张专辑 8张歌单</text>
 						</view>
 					</view>
 					
@@ -102,6 +102,10 @@
 				<uni-popup-dialog type="info" cancelText="取消" confirmText="确定" title="通知" content="是否确定退出登陆？" @confirm="dialogConfirm"
 					@close="dialogClose"></uni-popup-dialog>
 			</uni-popup>
+		</view>
+		
+		<view class="music_bar">
+			<musicBar/>
 		</view>
 		
 	</view>
@@ -321,6 +325,7 @@
 	}
 	
 	.music{
+		
 		.music_list{
 			height: 200px;
 			
@@ -370,7 +375,14 @@
 	}
 	
 	.sheet{
-		
+		padding-bottom: 50px;
+	}
+	
+	.music_bar{
+		left: 15px;
+		position: fixed;
+		bottom: 0px;
+		z-index: 10;
 	}
 	
 }

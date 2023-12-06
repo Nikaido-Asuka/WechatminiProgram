@@ -115,6 +115,15 @@
                 }
                 
                 }
+                ,{
+                    "path" : "resultDetail/resultDetail",
+                    "style" :                                                                                    
+                {
+                   "navigationStyle": "custom",
+                   "navigationBarTitleText": ""
+                }
+                
+                }
             ]
 		}
 	],
