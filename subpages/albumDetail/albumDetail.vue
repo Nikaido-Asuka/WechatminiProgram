@@ -6,13 +6,13 @@
 		
 		<!-- 1.专辑信息盒子 -->
 		<view class="album_info">
-			<image mode="widthFix" src="https://pic.imgdb.cn/item/652149acc458853aef689498.jpg"/>
+			<image mode="widthFix" :src="album.img"/>
 			<view class="right">
 				<text>{{ album.name }}</text>
 				<view class="singer">
 					<view class="singer_box">
 						<image mode="widthFix" src="https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg"/>
-						<text style="font-size: 13px;">{{ album.singer }}</text>
+						<text @click="toSingerDetail" style="font-size: 13px;">{{ album.singer }}</text>
 					</view>
 					
 					<view class="focus">已关注</view>
@@ -57,11 +57,12 @@
 			
 			<!-- 3.2歌曲列表部分 -->
 			<view class="content_list">
-				<songRow :searchList="album"/>
+				<songRow v-if="album !== '{}' " :searchList="album"/>
 			</view>
 			
 			<!-- 3.3歌手其他专辑 -->
 			<view class="other_album">
+				
 				<view class="other_album_head">
 					<text style="font-size: 18px;">该歌手的其他专辑</text>
 					<view class="right">
@@ -77,7 +78,9 @@
 						<text class="singer">陶喆</text>
 					</view>
 				</view>
+				
 			</view>
+			
 		</view>
 		
 		<view class="music_bar">
@@ -89,28 +92,37 @@
 <script>
 	import songRow from '@/components/songRow/songRow.vue'
 	import musicBar from '@/components/musicBar/musicBar.vue'
+	import request from '@/utils/request.js'
 	export default {
 		components:{ songRow, musicBar },
 		methods:{
+			toSingerDetail(){
+				uni.navigateTo({
+					url: '/subpages/singerDetail/singerDetail?id=' + this.album.singerId
+				})
+			},
 			back(){
 				uni.navigateBack();
+			},
+			getAlbumDetailInfo(id){
+				request({
+					url: '/qqmusic/album/' + id,
+				}).then((response)=>{
+					const { data } = response;
+					this.album = data;
+					console.log(this.album);
+				}).catch(err => {
+					console.log(err);
+				})
 			}
+		},
+		onLoad(options){
+			console.log(options);
+			this.getAlbumDetailInfo(options.id);
 		},
 		data() {
 			return {
-				album:{
-					id: 3,
-					name: "I'm OK（Reimagined）",
-					singer: '陶喆',
-					color: '#b14a08',
-					isSheet: true,
-					songList:[{
-						id: '3',
-						name: "I'm OK（Reimagined）",
-						album: "I'm OK（Reimagined）",
-						isVip: false,
-					}],
-				},
+				album:{},
 				
 				albumList:[{
 					id: 1,
@@ -140,10 +152,10 @@
 	}
 	
 	.album_info{
-		padding: 0 30px;
-		margin-top: 20px;
+		width: 310px;
+		margin: 20px auto;
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-start;
 		align-items: center;
 		gap: 40px;
 		
@@ -259,6 +271,7 @@
 		.other_album{
 			height: 200px;
 			margin-top: 150px;
+			padding-bottom: 70px;
 			
 			.other_album_head{
 				display: flex;

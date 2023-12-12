@@ -23,7 +23,7 @@
 				</view>
 				
 				<view class="list"> 
-					<view class="item" v-for="(item, index) in historyList" :key="index">{{ item }}</view>
+					<view class="item" v-for="(item, index) in historyList" :key="index" @click="historySearch(item)">{{ item }}</view>
 				</view>
 			</view>
 			
@@ -55,7 +55,9 @@
 			
 		</view>
 		
-		
+		<view class="music_bar">
+			<musicBar/>
+		</view>
 	</view>
 </template>
 
@@ -84,6 +86,13 @@
 			}
 		},
 		methods: {
+			historySearch(query){
+				uni.navigateTo({
+					url: '/subpages/resultDetail/resultDetail?query=' + query,
+				})
+				this.historyList.unshift(e.value);
+				this.searchValue = '';
+			},
 			search(e){
 				uni.navigateTo({
 					url: '/subpages/resultDetail/resultDetail?query=' + this.searchValue,
@@ -117,6 +126,7 @@
 	
 	.content{
 		padding: 90px 0px;
+		padding-bottom: 50px;
 		
 		.box{
 			padding: 10px 15px;
@@ -197,6 +207,11 @@
 			}
 		}
 	}
-	
+	.music_bar{
+		left: 15px;
+		position: fixed;
+		bottom: 0px;
+		z-index: 10;
+	}
 }
 </style>

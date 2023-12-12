@@ -1,5 +1,5 @@
 <template>
-	<view class="bigbox" :style="{ '--bgurl': 'url(' + song.img + ')' }">
+	<view class="bigbox" :style="{ '--bgurl': 'url(' + song.album.img + ')' }">
 		<view class="head">
 			<uni-icons type="bottom" color="gray" size="20" @click="goBack"></uni-icons>
 			
@@ -32,7 +32,7 @@
 		},
 		onLoad(options){
 			console.log(options);
-			this.fuckGetSong(Number(options.id));
+			this.songDetailGetSong(Number(options.id));
 		},
 		computed:{
 			...mapState('song', ['song']),
@@ -45,7 +45,8 @@
 		},
 		methods:{
 			...mapMutations('song', ['getSong']),
-			fuckGetSong(id){
+			songDetailGetSong(id){
+				console.log(id);
 				this.getSong(id);
 			},
 			changePage(index){

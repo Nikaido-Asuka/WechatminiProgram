@@ -14,14 +14,19 @@
 		</view>
 		
 		<!-- 2.内容 -->
-		<view class="content">
+		<view class="null" v-if="code === 20001">
+			<image mode="widthFix" src="https://pic.imgdb.cn/item/655ac964c458853aef683423.png"/>
+			<text>没有这首歌哦 试试换一个关键词呢</text>
+		</view>
+		
+		<view v-if="code === 20000" class="content">
 			
 			<!-- 2.1歌手信息 -->
 			<view class="singer_box" @click="toSingerDetail">
-				<image mode="widthFix" src="https://pic.imgdb.cn/item/650cd875c458853aef112efd.jpg"/>
+				<image mode="widthFix" :src="singer.img"/>
 				<view class="singer_info">
 					<text class="info">歌手</text>
-					<text>陶喆</text>
+					<text>{{singer.name}}</text>
 					<text class="info">歌曲：333 专辑：27 视频：496</text>
 				</view>
 			</view>
@@ -36,7 +41,7 @@
 					</view>
 				</view>
 				
-				<view class="list">
+				<view v-if="searchList.songList.length >= 0" class="list">
 					<songRow :searchList="searchList"/>
 				</view>
 				
@@ -44,50 +49,57 @@
 			
 			
 		</view>
+		
+		<view class="music_bar">
+			<musicBar/>
+		</view>
+		
 	</view>
 </template>
 
 <script>
+	import request from '@/utils/request.js'
 	import songRow from '@/components/songRow/songRow.vue'
 	export default {
 		components: { songRow },
 		onLoad(options){
 			console.log(options);
 			this.searchValue = options.query;
+			this.getInfo(this.searchValue);
 		},
 		methods:{
+			getInfo(query){
+				console.log(query);
+				request({
+					url: '/qqmusic/song/search?query=' + query,
+				}).then(response => {
+					console.log(response);
+					if(response.code === 20001){
+						this.code = 20001
+						this.searchList.songList = [];
+						return ;
+					}
+					this.singer = response.data.singer;
+					this.searchList = {songList: response.data.songList, isSheet: false};
+					console.log(this.singer);
+					console.log(this.searchList);
+				}).catch(err => console.log(err));
+			},
 			toSingerDetail(){
 				uni.navigateTo({
 					url: '/subpages/singerDetail/singerDetail?id=' + 1,
 				})
 			},
-			search(){
-				console.log("????");
+			search(e){
+				this.getInfo(e.value);
 			}
 		},
 		data() {
 			return {
 				searchValue: '',
-				searchList:{
-					isSheet: false,
-					songList:[{
-							id: 20,
-							name: "流沙",
-							singer: '陶喆',
-							album: '陶喆同名专辑',
-							isVip: true,
-						},{
-							id: 1,
-							name: '流沙（Reimagined）',
-							album: "流沙（Reimagined）",
-							singer: '陶喆'
-						},{
-							id: 4,
-							name: '流沙（Live）',
-							album: 'Soul Power',
-							singer: '陶喆'
-						}]
-				}
+				singer: {},
+				searchList:[],
+				code: 20000,
 			};
 		}
 	}
@@ -165,7 +177,26 @@
 				padding: 5px 20px;
 			}
 		}
+	}
 	
+	.null{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		margin-top: 100px;
+		
+		image{
+			width: 200px;
+		}
+		
+	}
+	
+	.music_bar{
+		left: 15px;
+		position: fixed;
+		bottom: 0px;
+		z-index: 10;
 	}
 }
 </style>

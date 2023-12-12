@@ -2,7 +2,7 @@
 	<view class="bigbox">
 		<!-- 1.封面 -->
 		  <view class="img">
-		   <image @longtap="previewImg" :data-imgUrl="song.album.img" mode="widthFix" :src="song.img"></image>
+		   <image @longtap="previewImg" :data-imgUrl="song.album.img" mode="widthFix" :src="song.album.img"></image>
 		  </view>
 		  
 		  <!-- 2.歌曲信息 -->
@@ -177,11 +177,7 @@
 			display: flex;
 			justify-content: flex-start;
 			flex-direction: column;
-			color: gray;
-			
-			.singer{
-				color: gray;
-			}
+			color: #5e5e5e;
 		}
 		
 		.lyric{

@@ -12,13 +12,10 @@
 			<view class="active_box" :style="{ left: titleIndex * 60 + 12 + 'px' }"></view>
 		</view>
 		
-		
 		<view class="search">
 			<Search/>
 		</view>
 	
-		
-		
 		<view class="content">
 			<Recommend/>
 		</view>

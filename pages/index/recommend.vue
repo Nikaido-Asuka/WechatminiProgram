@@ -134,10 +134,10 @@ export default {
 					singer: '陶喆',
 					img: 'https://pic.imgdb.cn/item/6508e497204c2e34d3c6d452.jpg'
 				},{
-					id: 10,
-					name: '飞机场的十点半',
+					id: 15,
+					name: '太美丽（Live）',
 					singer: '陶喆',
-					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6b95.jpg'
+					img: 'https://pic.imgdb.cn/item/657538fac458853aef88bc71.jpg'
 				}],[{
 					id: 11,
 					name: '爱很简单',

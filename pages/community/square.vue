@@ -4,15 +4,16 @@
 	<view @click="toWrite" class="addPost">
 		<uni-icons size="25" color="white" type="plusempty"></uni-icons>
 	</view>
+	
 	<view class="item" v-for="(item, index) in postsList" :key="item.id">
 		
 		
 		
 		<!-- 头部 -->
 		<view class="head">
-			<image class="avatar" :src="item.avatar"></image>
+			<image class="avatar" :src="item.userInfo.avatar"></image>
 			<view class="head_info">
-				<text :style="{ color: item.isStar ? '#31c27c' : 'gray'}" class="username">{{ item.username }}</text>
+				<text :style="{ color: item.isStar ? '#31c27c' : 'gray'}" class="username">{{ item.userInfo.username }}</text>
 				<text class="time">{{ item.time }}</text>
 			</view>
 		</view>
@@ -20,6 +21,10 @@
 		<!-- info -->
 		<view class="info">
 			<view class="text">{{ item.text }}</view>
+			
+			<view class="image_box" v-if="item.imgs.length > 0">
+				<image @tap="previewImg" v-for="(item2, index2) in item.imgs" :data-imgUrl="item2" :key="index2" :src="item2"/>
+			</view>
 			
 			<view class="song_box">
 				<image class="play" src="../../static/community/播放.png"></image>
@@ -67,7 +72,7 @@
 					<text style="color: #fcfcfc; font-size: 12px;">编辑</text>
 				</view>
 				
-				<view class="operate_box">
+				<view class="operate_box" @click="deletePost()">
 					<view class="head">
 						<uni-icons type="trash-filled" size="30" color="#fcfcfc"></uni-icons>
 					</view>
@@ -81,27 +86,57 @@
 </template>
 
 <script>
-	import { mapState, mapMutations} from 'vuex'
+	import { mapState, mapMutations } from 'vuex'
+	import request from '@/utils/request.js'
 	export default {
 		name: 'square',
 		data() {
 			return {
 				type: '',
 				currentPostIndex: -1,
+				postsList: [],
 			};
 		},
+		mounted(){
+			this.getPostList();
+		},
 		computed:{
-			...mapState('post', ['postsList', 'isShow']),
+			...mapState('post', ['isShow']),
 		},
 		methods:{
-			...mapMutations('post', ['changeIsShow']),
+			...mapMutations('post', ['changeIsShow', 'updatePostsList']),
+			
+			previewImg(e){
+				const imgUrl = e.currentTarget.dataset.imgurl;
+				uni.previewImage({
+					urls: [imgUrl],
+				})
+			},
+			
+			getPostList(){
+				request({
+					url: '/qqmusic/post/getPosts'
+				}).then((response) => {
+					this.postsList = response.data;
+					this.updatePostsList(this.postsList);
+				}).catch(err => console.log(err));
+			},
 			stateChange(e){
 				const { show } = e;
 				this.changeIsShow(!show);
 			},
 			editPost(){
+				const currentPost = this.postsList[this.currentPostIndex];
+				console.log(currentPost);
+				const fuckPost = {
+					id: currentPost.id,
+					userId: currentPost.userId,
+					isMusic: 1,
+					text: currentPost.text,
+					song: currentPost.song,
+				}
 				uni.navigateTo({
-					url: '/subpages/postForm/postForm?post=' + JSON.stringify(this.postsList[this.currentPostIndex]) + '&isEdit=true',
+					url: '/subpages/postForm/postForm?post=' + encodeURIComponent(JSON.stringify(fuckPost)) + '&isEdit=true',
 				})
 				this.changeIsShow(true);
 				this.$refs.popup.close();
@@ -169,7 +204,6 @@
 .item{
 	border-radius: 8px;
 	margin: 10px 10px;
-	height: 180px;
 	background-color: #2e2e2e;
 	padding-bottom: 20px;
 	position: relative;
@@ -205,12 +239,29 @@
 	.info{
 		padding: 0 20px;
 		
+		.image_box{
+			padding-top: 5px;
+			height: 100px;
+			width: 100%;
+			display: grid;
+			grid-template-columns: 31% 31% 31%;
+			grid-template-rows: 45% 45%;
+			gap: 15px 10px;
+			
+			image{
+				width: 100px;
+				height: 100px;
+				border-radius: 12px;
+				overflow: hidden;
+			}
+		}
+		
 		.song_box{
 			width: 100%;
 			height: 55px;
 			overflow: hidden;
-			margin-top: 20px;
 			border-radius: 8px;
+			margin-top: 10px;
 			display: flex;
 			justify-content: flex-start;
 			align-items: center;

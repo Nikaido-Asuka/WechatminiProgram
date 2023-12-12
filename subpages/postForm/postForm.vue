@@ -24,10 +24,15 @@
 			<view class="uni_textarea">
 				<textarea v-model="post.text"/>
 				
-				<view class="image">
+				<view v-if="post.imgs.length <= 0 && post.imgs.length <=9 " @click="uploadImgs" class="image">
 					<uni-icons type="plusempty" size="25" color="gray"></uni-icons>
 					<text>图片</text>
 				</view>
+				
+				<view v-if="post.imgs.length >= 1" class="image_show">
+					<image style="width: 80px;" mode="widthFix" :src="post.imgs"/>
+				</view>
+				
 			</view>
 			
 			<!-- 3.音乐卡片部分 -->
@@ -51,28 +56,57 @@
 			return {
 				isEdit: false,
 				post:{
-					username: '',
-					avatar: '',
-					isMusic: true,
+					id: null,
+					userInfo: this.userinfo,
+					isMusic: 1,
 					text: '',
+					imgs: [],
 					song:{
-						img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg',
+						id: 1,
 						name: '流沙（Reimagined）',
-						singer: '陶喆'
+						singer: '陶喆',
+						img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg'
 					}
 				}
 			};
 		},
 		onLoad(options){
-			this.post = JSON.parse(options.post);
+			const postStr = decodeURIComponent(options.post);
+			this.post = JSON.parse(postStr);
 			this.isEdit = options.isEdit;
-			console.log(this.post);
 		},
 		computed:{
 			...mapState('user', ['userinfo']),
 		},
 		methods:{
 			...mapMutations('post', ['addPost', 'editPostInfo']),
+			uploadImgs(){
+				uni.chooseImage({
+					count: 9,
+					sizeType: ['original', 'compressed'],
+					sourceType: ['album'],
+					success: (chooseRes) => {
+						const tempFilePaths = chooseRes.tempFilePaths;
+						
+						uni.uploadFile({
+							url: 'http://localhost:8085/qqmusic/post/uploadImgs',
+							filePath: tempFilePaths[0],
+							name: 'file',
+							formData:{
+								user: 'test'
+							},
+							success:(uploadRes)=>{
+								const { message } = JSON.parse(uploadRes.data);
+								console.log(message);
+								this.post.imgs.push(message);
+ 							},
+							fail:(error)=>{
+								console.log('上传失败', error);
+							}
+						})
+					}
+				})
+			},
 			removeSong(){
 				this.post.song = {};
 				this.post.isMusic = false;
@@ -81,29 +115,6 @@
 				uni.navigateBack();
 			},
 			submit(){
-				if(this.isEdit){
-					if(this.editPostInfo({ id : this.post.id, text: this.post.text })){
-						uni.showToast({
-							title: '修改成功！',
-							icon: 'success',
-							duration: 2000,
-							complete() {
-								uni.navigateBack();
-							}
-						})
-						return ;
-					}else{
-						uni.showToast({
-							title: '修改失败！',
-							icon: 'error',
-							duration: 2000,
-							complete() {
-								uni.navigateBack();
-							}
-						})
-					}
-					return ;
-				}
 				var currentDate = new Date();
 				var year = currentDate.getFullYear();
 				var month = ('0' + (currentDate.getMonth() + 1)).slice(-2);
@@ -111,8 +122,16 @@
 				
 				this.post.time = year + '.' + month + '.' + day;
 				
-				this.post.username = this.userinfo.username;
-				this.post.avatar = this.userinfo.avatar;
+				this.post.userId = this.userinfo.id;
+				
+				this.post.songId = this.post.song.id;
+				
+				this.post.userInfo = this.userinfo;
+				
+				if(this.isEdit){
+					this.editPostInfo(this.post);
+					return ;
+				}
 				this.addPost(this.post);
 				// switchTab才能实现 从一个非 tabbar 页面跳转到一个 tabbar 页面
 				uni.switchTab({
@@ -211,6 +230,14 @@
 					color: gray;
 				}
 			}
+			
+			.image_show{
+				width: 80px;
+				height: 80px;
+				border-radius: 8px;
+				overflow: hidden;
+			}
+			
 		}
 		
 		.music_card{
@@ -229,6 +256,8 @@
 				border-top-left-radius: 8px;
 				border-bottom-left-radius: 8px;
 			}
+			
+			
 			
 			.info{
 				display: flex;

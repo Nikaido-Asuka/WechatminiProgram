@@ -1,10 +1,10 @@
 <template>
 	<view>
-		<view class="item" v-for="(item, index) in songList" :key="item.id">
+		<view class="item" v-for="(item, index) in albumList" :key="item.id" @click="toAlbumDetail(item.id)">
 			<view class="left">
 				<image :src="item.img"/>
 				<view class="left_info">
-					<text>{{ item.album }}</text>
+					<text class="name">{{ item.name }}</text>
 					<text class="info">{{ item.time }}</text>
 				</view>
 			</view>
@@ -15,29 +15,31 @@
 </template>
 
 <script>
+	import request from '@/utils/request.js'
 	export default {
+		props: [ 'my_id' ],
+		mounted(){
+			this.getAlbumListBySingerId(this.my_id);
+		},
+		methods:{
+			getAlbumListBySingerId(id){
+				request({
+					url: '/qqmusic/singer/getAlbum/' + id,
+				}).then((response) => {
+					const { data } = response;
+					this.albumList = data;
+				}).catch(err => console.log(err));
+			},
+			toAlbumDetail(id){
+				uni.navigateTo({
+					url: '/subpages/albumDetail/albumDetail?id=' + id
+				})
+			}
+		},
 		data() {
 			return {
 				singer: '陶喆',
-				songList:[{
-					id: '1',
-					album: '流沙（Reimagined）',
-					time: '2023-07-03',
-					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg',
-					isVip: false,
-				},{
-					id: '3',
-					album: "I'm OK（Reimagined）",
-					time: '2023-07-11',
-					img: 'https://pic.imgdb.cn/item/652149acc458853aef689498.jpg',
-					isVip: false,
-				},{
-					id: '4',
-					album: '陶喆同名专辑',
-					time: '1997-12-06',
-					img: 'https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6b95.jpg',
-					isVip: true,
-				}]
+				albumList:[],
 			};
 		}
 	}
@@ -63,6 +65,13 @@
 			text{
 				color: white;
 				font-size: 18px;
+			}
+			
+			.name{
+				width: 200px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
 			}
 			
 			.info{

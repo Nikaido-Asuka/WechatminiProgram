@@ -248,7 +248,7 @@ export default {
 			id: 2,
 			songName: "I'm OK（Reimagined）",
 			album: {
-				id: 3,
+				id: 1,
 				name: "I'm OK（Reimagined）",
 				img: 'https://pic.imgdb.cn/item/652149acc458853aef689498.jpg',
 				color: '#b14a08',
@@ -307,6 +307,7 @@ export default {
     mutations: {
 		// 根据id获得歌曲
 		getSong(state, id){
+			console.log(id);
 			if(id === state.song.id){
 				return ;
 			}

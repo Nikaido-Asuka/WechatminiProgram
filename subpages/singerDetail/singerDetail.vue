@@ -51,7 +51,7 @@
 			
 			<!-- 3.专辑 -->
 			<view v-show="titleIndex === 2" style="padding: 10px 20px;">
-				<Album/>
+				<Album v-if="hasSingerInfo" :my_id="singerInfo.id"/>
 			</view>
 			
 			<!-- 4.视频 -->
@@ -68,6 +68,10 @@
 				
 		</view>
 		
+		<view class="music_bar">
+			<musicBar/>
+		</view>
+		
 	</view>
 </template>
 
@@ -81,7 +85,7 @@
 		components: { songList, singerInfo, Album },
 		data() {
 			return {
-				titleIndex: 1,
+				titleIndex: 0,
 				titleArr: ['百科', '歌曲', '专辑', '视频', '歌单'],
 				singerInfo: {},
 			};
@@ -89,7 +93,7 @@
 		computed: {
 		    hasSingerInfo() {
 		      return Object.keys(this.singerInfo).length !== 0;
-		    }
+		    },
 		},
 		onLoad(options) {
 			this.getSingerInfo(options.id);
@@ -103,6 +107,7 @@
 				}).then((response)=>{
 					this.updateSinger(response.data.singer);
 					this.singerInfo = response.data.singer;
+					console.log(this.singerInfo);
 					this.updateSongList(response.data.songList);
 				}).catch(err => console.log(err));
 			},
@@ -235,6 +240,13 @@
 				height: 200px;
 			}
 		}
+	}
+	
+	.music_bar{
+		left: 15px;
+		position: fixed;
+		bottom: 0px;
+		z-index: 10;
 	}
 }
 </style>

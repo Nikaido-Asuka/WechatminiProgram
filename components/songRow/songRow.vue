@@ -45,8 +45,9 @@
 		},
 		methods:{
 			toPlay(id){
+				console.log(id);
 				uni.navigateTo({
-					url: '/pages/songDetail/songDetail?id = ' + id,
+					url: '/pages/songDetail/songDetail?id=' + id,
 				})
 			}
 		}
@@ -55,7 +56,7 @@
 
 <style scoped lang="scss">
 .container{
-	margin-top: 50px;
+	margin-top: 20px;
 	.item:nth-child(1){
 		margin-top: -15px!important;
 	}
