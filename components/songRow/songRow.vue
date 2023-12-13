@@ -16,7 +16,8 @@
 			</view>
 			
 			<view class="right">
-				<uni-icons size="22" color="#8a8a8a" type="heart"></uni-icons>
+				<uni-icons size="22" v-if="!searchList.isLikeList" color="#8a8a8a" type="heart"></uni-icons>
+				<uni-icons size="22" v-if="searchList.isLikeList" color="#fc0030" type="heart-filled"></uni-icons>
 				<uni-icons size="22" color="#8a8a8a" type="plusempty"></uni-icons>
 				<uni-icons size="22" color="#8a8a8a" type="more-filled"></uni-icons>
 			</view>

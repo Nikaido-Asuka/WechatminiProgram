@@ -50,7 +50,7 @@
 					</view>
 				</view>
 				
-				<view class="right" @click="toggle('bottom', index)" >
+				<view class="right" @click="toggle('bottom', index, item.id)" >
 					<uni-icons type="more-filled" size="22" color="gray"></uni-icons>
 				</view>
 				
@@ -64,7 +64,7 @@
 		<uni-popup ref="popup" background-color="#2c2c2c" @change="stateChange">
 			<view class="popup-content">
 				
-				<view class="operate_box" @click="editPost()">
+				<view v-if="optype === 'self' " class="operate_box" @click="editPost()">
 					<view class="head">
 						<uni-icons type="compose" size="30" color="#fcfcfc"></uni-icons>
 					</view>
@@ -72,12 +72,21 @@
 					<text style="color: #fcfcfc; font-size: 12px;">编辑</text>
 				</view>
 				
-				<view class="operate_box" @click="deletePost()">
+				<view v-if="optype === 'self' " class="operate_box" @click="deletePost()">
 					<view class="head">
 						<uni-icons type="trash-filled" size="30" color="#fcfcfc"></uni-icons>
 					</view>
 					
 					<text style="color: #fcfcfc; font-size: 12px;">删除</text>
+				</view>
+				
+				
+				<view v-if="optype === 'report' " class="operate_box" @click="reportPost()">
+					<view class="head">
+						<uni-icons type="clear" size="30" color="#fcfcfc"></uni-icons>
+					</view>
+					
+					<text style="color: #fcfcfc; font-size: 12px;">举报</text>
 				</view>
 				
 			</view>
@@ -93,7 +102,8 @@
 		data() {
 			return {
 				type: '',
-				currentPostIndex: -1,
+				optype: '',
+				currentPostId: -1,
 				postsList: [],
 			};
 		},
@@ -102,10 +112,10 @@
 		},
 		computed:{
 			...mapState('post', ['isShow']),
+			...mapState('user', ['userinfo']),
 		},
 		methods:{
 			...mapMutations('post', ['changeIsShow', 'updatePostsList']),
-			
 			previewImg(e){
 				const imgUrl = e.currentTarget.dataset.imgurl;
 				uni.previewImage({
@@ -141,10 +151,49 @@
 				this.changeIsShow(true);
 				this.$refs.popup.close();
 			},
-			toggle(type, index){
+			reportPost(){
+				uni.showToast({
+					icon: 'success',
+					title: '举报成功',
+					duration: 2000
+				})
+				this.$refs.popup.close();
+			},
+			deletePost(){
+				console.log(this.currentPostId);
+				request({
+					url: '/qqmusic/post/deletePost/' + this.currentPostId,
+					method: 'DELETE'
+				}).then(response => {
+					console.log(response);
+					uni.showToast({
+						title: '删除成功！',
+						icon: 'success',
+						duration: 2000
+					})
+					this.postsList = this.postsList.filter(item => item.id !== this.currentPostId);
+					this.$refs.popup.close();
+				}).catch(err => {
+					console.error(err);
+					uni.showToast({
+						url: '删除失败！',
+						icon: 'error',
+						duration: 2000,
+					})
+				})
+			},
+			toggle(type, index, id){
+				
+				this.currentPostId = id;
+				const currentUser = this.userinfo;
+				const currentPost = this.postsList[index];
+				
+				if(currentUser.id === currentPost.userId){
+					this.optype = 'self'
+				}else{
+					this.optype = 'report'
+				}
 				this.type = type;
-				this.currentPostIndex = index;
-				console.log(this.currentPostIndex);
 				this.$refs.popup.open(type);
 			},
 			changeLike(index){

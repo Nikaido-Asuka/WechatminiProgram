@@ -124,6 +124,15 @@
                 }
                 
                 }
+                ,{
+                    "path" : "collectDetail/collectDetail",
+                    "style" :                                                                                    
+                {
+                   "navigationStyle": "custom",
+                   "navigationBarTitleText": ""
+                }
+                
+                }
             ]
 		}
 	],

@@ -1,5 +1,10 @@
 <template>
 	<view class="bigbox">
+		
+		<view class="back" @click="back">
+			<uni-icons type="left" size="20" color="white"></uni-icons>
+		</view>
+		
 		<view class="content_box">
 			
 			<!-- 头部盒子 -->
@@ -71,8 +76,10 @@
 			}
 		},
 		methods:{
-			
-		}
+			back(){
+				uni.navigateBack();
+			}
+		},
 	}
 </script>
 
@@ -80,6 +87,13 @@
 .bigbox{
 	padding-bottom: 350px;
 	background: linear-gradient(#185132, #2c2c2e);
+	
+	.back{
+		position: absolute;
+		top: 55px;
+		left: 20px;
+	}
+	
 	
 	.content_box{
 		padding: 100px 20px;

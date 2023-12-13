@@ -1,5 +1,10 @@
 <template>
 	<view class="bigbox">
+		
+		<view class="back" @click="back">
+			<uni-icons type="left" size="20" color="white"></uni-icons>
+		</view>
+		
 		<view class="content">
 			<view class="title">
 				<text>我的年度歌手榜</text>
@@ -32,6 +37,11 @@
 
 <script>
 	export default {
+		methods:{
+			back(){
+				uni.navigateBack();
+			}
+		},
 		data() {
 			return {
 				singerList:[{
@@ -69,6 +79,12 @@
 .bigbox{
 	padding-bottom: 350px;
 	background: linear-gradient(#185132, #2c2c2e);
+	
+	.back{
+		position: absolute;
+		top: 55px;
+		left: 20px;
+	}
 	
 	.content{
 		padding: 100px 20px;
