@@ -34,8 +34,8 @@
 		  <view class="bottom">
 		   <view class="left">
 		    <uni-icons type="chat-filled" color="gray" size="30px"></uni-icons>
-		    <uni-icons type="medal-filled" color="gray" size="30px"></uni-icons>
-		    <uni-icons type="star-filled" color="gray" size="30px"></uni-icons>
+		    <uni-icons @click="addToSheet()" type="star-filled" color="gray" size="30px"></uni-icons>
+			<uni-icons @click="redo()" type="redo-filled" color="gray" size="30px"></uni-icons>
 		    
 		   </view>
 		   
@@ -56,7 +56,8 @@
 		   };
 	  },
 	  computed:{
-			...mapState('song',['song']),
+			...mapState('song', ['song']),
+			...mapState('user', ['userinfo']),
 			scrollTop:{
 				get(){
 					return this.song.currentLyricIndex * 60;
@@ -69,6 +70,20 @@
 	  },
 	  methods:{
 			...mapMutations('song', ['updateLyricIndex', 'playChange', 'play', 'playOver']),
+			addToSheet(){
+				uni.navigateTo({
+					url: '/subpages/sheetList/sheetList',
+				})
+			},
+			redo(){
+				const fuckPost = {
+					userId: this.userinfo.userId,
+					song: this.song,
+				}
+				uni.navigateTo({
+					url: '/subpages/postForm/postForm?post=' + encodeURIComponent(JSON.stringify(fuckPost)) + '&isEdit=false',
+				})
+			},
 			onScroll(e) {
 			  // 更新滚动位置
 			  this.scrollTop = e.detail.scrollTop;

@@ -1,19 +1,20 @@
 <template>
 	<view class="container">
-		<uni-swipe-action class="item" v-for="(item, index) in albumList" :key="item.id">
+		<uni-swipe-action class="item" v-for="(item, index) in sheetList" :key="item.id">
 			<uni-swipe-action-item
 				:right-options="options2"
 				:show="isOpened"
 				:auto-close="false"
 				@click="bindClick(item.id)"
 			>
-				<view class="content-box" @click="toAlbumDetail(item.id)">
+				<view class="content-box" @click="toSheetDetail(item.id)">
 					<view class="left">
-						<image mode="widthFix" :src="item.img"/>
+						<image :src="item.img"/>
 						<view class="left-info">
 							<text>{{ item.name }}</text>
 							<view class="left-info-bottom">
-								<text>来自 {{ item.singer }}</text>
+								<text>{{ item.number }}首</text>
+								<text v-if="item.first_song">{{ item.first_song.name }}&nbsp;-&nbsp;{{ item.first_song.singer }}</text>
 							</view>
 						</view>
 					</view>
@@ -38,11 +39,12 @@
 <script>
 	import request from '@/utils/request.js'
 	export default {
-		name:"sheetList",
+		name:"my-sheet",
 		methods:{
-			toAlbumDetail(id){
+			toSheetDetail(id){
+				console.log(id);
 				uni.navigateTo({
-					url: '/subpages/albumDetail/albumDetail?id=' + id,
+					url: '/subpages/sheetDetail/sheetDetail?id=' + id,
 				})
 			},
 			bindClick(id){
@@ -50,39 +52,19 @@
 				this.currentAlbumId = id;
 			},
 			dialogConfirm(){
-				request({
-					url: '/qqmusic/user/removeLikeAlbum/' + this.currentAlbumId,
-					method: 'DELETE',
-				}).then(response => {
-					console.log(response.data);
-					uni.reLaunch({
-						url: '/subpages/collectDetail/collectDetail'
-					})
-					uni.showToast({
-						title: '取消成功！',
-						icon: 'success',
-						duration: 2000
-					})
-				}).catch(err => {
-					console.error(err);
-					uni.showToast({
-						title: '网络错误，请稍后重试！',
-						icon: 'error',
-						duration: 2000,
-					})
-				})
+				
 			},
 			dialogClose(){
 				this.$refs.alertDialog.close();
 			}
 		},
-		props: ['albumList'],
+		props: ['sheetList'],
 		data() {
 			return {
 				isOpened: 'none',
 				currentAlbumId: -1,
 				options2:[{
-					text: '取消收藏',
+					text: '删除歌单',
 					style: {
 						backgroundColor: '#F56C6C'
 					}
@@ -96,13 +78,13 @@
 .container{
 	
 	.item{
-		margin-top: 30px;
 		
 		.content-box{
+			height: 70px;
+			margin-top: 10px;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			margin-top: 20px;
 			
 			.left{
 				display: flex;
@@ -112,6 +94,7 @@
 				
 				image{
 					width: 60px;
+					height: 60px;
 					border-radius: 12px;
 				}
 				
@@ -125,9 +108,9 @@
 						display: flex;
 						justify-content: flex-start;
 						align-items: center;
-						gap: 20px;
+						gap: 10px;
 						color: gray;
-						font-size: 15px;
+						font-size: 12px;
 					}
 				}
 			}

@@ -106,7 +106,7 @@
 	.music_bar{
 		left: 15px;
 		position: fixed;
-		bottom: 0px;
+		bottom: 10px;
 		z-index: 10;
 	}
 }

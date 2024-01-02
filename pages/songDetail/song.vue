@@ -134,9 +134,7 @@
 									break;
 								}
 							}
-						 
 					}
-
 			     // 跳转到指定的时间点
 			     this.toDesignate();
 			    });

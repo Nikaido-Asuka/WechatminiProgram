@@ -73,7 +73,7 @@
 		<view class="box music">
 			<text class="title">乐库</text>
 			
-			<view class="music_list">
+			<view class="music_list" @click="toLikeDetail">
 				<view class="music_item">
 					<view class="left">
 						<image src="https://pic.imgdb.cn/item/6500fdc0661c6c8e543d6ba4.jpg"/>
@@ -87,22 +87,39 @@
 					<uni-icons type="forward" size="20" color="gray"></uni-icons>
 				</view>
 			</view>
+			
 		</view>
 		
 		
 		<!-- 自建歌单 -->
-		<view class="box sheet">
-			<text class="title">歌单</text>
-			<Sheet/>
+		<view class="box sheet" :style="{ paddingBottom: this.sheetList.length * 80 + 'px' }">
+			<view class="head">
+				<text class="title">歌单</text>
+				<uni-icons type="plusempty" color="white" size="20" @click="addSheet()"></uni-icons>
+			</view>
+			
+			<Sheet :sheetList="sheetList"/>
 		</view>
 		
 		<!-- 提示窗示例 -->
 		<view>
 			<uni-popup ref="alertDialog" type="dialog">
-				<uni-popup-dialog type="info" cancelText="取消" confirmText="确定" title="通知" content="是否确定退出登陆？" @confirm="dialogConfirm"
+				<uni-popup-dialog type="info" cancelText="取消" confirmText="确定" title="通知" content="是否确定退出登陆？" @confirm="dialogConfirm1"
 					@close="dialogClose"></uni-popup-dialog>
 			</uni-popup>
 		</view>
+		
+		<view>
+		  <uni-popup ref="newSheetDialog" type="dialog">
+		    <uni-popup-dialog type="info" cancelText="取消" confirmText="确定" title="新建歌单" @confirm="dialogConfirm2" @close="dialogClose">
+		      <view class="content">
+				  <input class="dialog_input" type="text" placeholder="请输入歌单名称" v-model="sheetName" />
+				  <view class="charNumber" :class=" 20-charNumber < 0 ? 'error' : '' ">{{ 20 - charNumber}}</view>
+			  </view>
+		    </uni-popup-dialog>
+		  </uni-popup>
+		</view>
+
 		
 		<view class="music_bar">
 			<musicBar/>
@@ -113,13 +130,35 @@
 
 <script>
 	import { mapMutations, mapState } from 'vuex'
-	import Sheet from '@/components/sheet/sheet.vue'
+	import Sheet from '@/components/my-sheet/my-sheet.vue'
 	export default {
 		name:"userinfo",
-		components:{ Sheet },
+		components: { Sheet },
 		data() {
 			return {
-				
+				sheetName: '新建歌单',
+				sheetList:[{
+					id: 1,
+					name: '陶喆',
+					number: 3,
+					img: 'https://pic.imgdb.cn/item/652368cac458853aef309984.jpg',
+					first_song: {
+						id: 3,
+						name: "I'm OK（Reimagined）",
+						album: "I'm OK（Reimagined）",
+						singer: '陶喆'
+					}
+				},{
+					id: 2,
+					name: '23春',
+					number: 10,
+					img: 'https://pic.imgdb.cn/item/6565577dc458853aef808fec.jpg',
+					first_song: {
+						id: 2,
+						name: '大海',
+						singer: '张雨生'
+					}
+				}],
 			};
 		},
 		mounted(){
@@ -127,9 +166,21 @@
 		},
 		computed:{
 			...mapState('user', ['userinfo']),
+			charNumber(){
+				return this.sheetName.length;
+			},
 		},
 		methods:{
 			...mapMutations('user', ['removeUser']),
+			...mapMutations('sheet', ['addSheet']),
+			addSheet(){
+				this.$refs.newSheetDialog.open();
+			},
+			toLikeDetail(){
+				uni.navigateTo({
+					url: '/subpages/collectDetail/collectDetail'
+				})
+			},
 			previewImg(e){
 				const imgUrl = e.currentTarget.dataset.imgurl;
 				uni.previewImage({
@@ -139,12 +190,40 @@
 			logout(){
 				this.$refs.alertDialog.open();
 			},
-			dialogConfirm(){
+			dialogConfirm1(){
 				this.removeUser();
 				this.$refs.alertDialog.close();
 			},
+			dialogConfirm2(){
+				if(this.charNumber > 20){
+					uni.showToast({
+						icon: 'error',
+						title: '超出字数限制',
+						duration: 2000,
+					})
+				}else{
+					const sheet = {
+						id: this.sheetList.length + 1,
+						name: this.sheetName,
+						number: 0,
+						img: 'https://pic.imgdb.cn/item/658a8d12c458853aef1f39b8.jpg',
+					};
+					this.sheetList.unshift(sheet);
+					this.addSheet(sheet);
+					uni.showToast({
+						icon: 'success',
+						title: '新建成功！',
+						duration: 2000,
+					})
+				}
+				
+				this.sheetName = '新建歌单';
+				this.$refs.newSheetDialog.close();
+			},
 			dialogClose(){
+				this.sheetName = '新建歌单';
 				this.$refs.alertDialog.close();
+				this.$refs.newSheetDialog.close();
 			},
 			navigate(path1, path2){
 				console.log(path1 + path2);
@@ -164,6 +243,25 @@
 </script>
 
 <style lang="scss">
+.content{
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
+	align-items: center;
+	background-color: #efefef;
+	padding: 5px 10px;
+	color: black;
+	border-radius: 8px;
+	
+	.dialog_input{
+		border-radius: 8px;
+		width: 90%;
+	}
+	.error{
+		color: red;
+	}
+}
+
 .bigbox{
 	width: 100%;
 	position: relative;
@@ -375,13 +473,19 @@
 	}
 	
 	.sheet{
-		padding-bottom: 50px;
+		
+		.head{
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: auto;
+		}
 	}
 	
 	.music_bar{
 		left: 15px;
 		position: fixed;
-		bottom: 0px;
+		bottom: 10px;
 		z-index: 10;
 	}
 	

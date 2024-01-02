@@ -3,7 +3,7 @@
 		<!-- 1.头部导航 -->
 		<view class="uni-navbar-box">
 			<view class="head">
-				<view class="left">
+				<view class="left" @click="back">
 					<uni-icons type="left" size="20" color="white"></uni-icons>
 				</view>
 				
@@ -61,6 +61,10 @@
 		</view>
 		
 		
+		<view class="music_bar">
+			<musicBar/>
+		</view>
+		
 	</view>
 </template>
 
@@ -86,7 +90,7 @@
 					title: '有声',
 					number: 0,
 				}],
-				currentIndex: 1,
+				currentIndex: 0,
 				searchList:{
 					isSheet: true,
 					isLikeList: true,
@@ -97,16 +101,17 @@
 		},
 		mounted(){
 			this.getSongList();
+			this.getAlbumList();
 		},
 		computed:{
 			...mapState('user', ['userinfo']),
 		},
 		methods:{
+			back(){
+				uni.navigateBack();
+			},
 			changeIndex(index){
 				this.currentIndex = index;
-				if (index === 1){
-					this.getAlbumList();
-				}
 			},
 			getSongList(){
 				request({
@@ -121,9 +126,7 @@
 					url: '/qqmusic/user/getLikeAlbum/' + this.userinfo.id
 				}).then( response => {
 					this.albumList = response.data;
-					this.albumList.map(item => {
-						console.log(item)
-					})
+					this.titleArr[1].number = this.albumList.length;
 				}).catch( err => {
 					console.log(err);
 					uni.showToast({
@@ -255,6 +258,13 @@
 				}
 			}
 		}
+	}
+	
+	.music_bar{
+		left: 15px;
+		position: fixed;
+		bottom: 10px;
+		z-index: 10;
 	}
 }
 </style>

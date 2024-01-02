@@ -1,5 +1,5 @@
 <template>
-	<view class="container" :style="{ backgroundImage: 'url(' + sheet.bgImg + ')' }">
+	<view class="container" @longtap="changeImage" :style="{ backgroundImage: 'url(' + sheet.img + ')' }">
 		<view class="head">
 			<uni-icons @click="back" type="left" size="22" color="white"></uni-icons>
 		</view>
@@ -12,7 +12,7 @@
 					<text class="username">{{ userinfo.username }}</text>
 				</view>
 				<view class="right">
-					<uni-icons type="headphones" color="white" size="25"></uni-icons>
+					<uni-icons type="headphones" color="white" size="20"></uni-icons>
 					<text>{{ sheet.playNum }}</text>
 				</view>
 			</view>
@@ -49,14 +49,21 @@
 </template>
 
 <script>
-	import { mapState } from 'vuex'
+	import { mapState, mapGetters } from 'vuex'
 	import musicBar from '@/components/musicBar/musicBar.vue'
 	export default {
 		components: { musicBar },
 		computed:{
+			...mapGetters('sheet', ['getSheetById']),
 			...mapState('user', ['userinfo']),
 		},
+		onLoad(options){
+			this.sheet = this.getSheetById(Number(options.id));
+		},
 		methods:{
+			changeImage(){
+				
+			},
 			back(){
 				uni.navigateBack();
 			}
@@ -67,22 +74,28 @@
 					id: 1,
 					name: '陶喆',
 					playNum: 4931,
-					bgImg: 'https://pic.imgdb.cn/item/652368cac458853aef309984.jpg',
+					img: 'https://pic.imgdb.cn/item/652368cac458853aef309984.jpg',
 					isSheet: true,
 					songList:[{
-						id: 3,
+						id: 2,
 						name: "I'm OK（Reimagined）",
-						album: "I'm OK（Reimagined）",
+						album: {
+							name:  "I'm OK（Reimagined）",
+						},
 						singer: '陶喆'
 					},{
 						id: 1,
 						name: '流沙（Reimagined）',
-						album: '流沙（Reimagined）',
+						album: {
+							name:  "流沙（Reimagined）",
+						},
 						singer: '陶喆'
 					},{
 						id: 4,
 						name: '爱是个什么东西',
-						album: '太平盛世',
+						album: {
+							name: '太平盛世',
+						},
 						singer: '陶喆'
 					}]
 				},

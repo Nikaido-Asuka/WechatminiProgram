@@ -72,8 +72,16 @@
 		},
 		onLoad(options){
 			const postStr = decodeURIComponent(options.post);
+			console.log(JSON.parse(postStr).song);
+			this.isEdit = JSON.parse(options.isEdit);
+			if (options.isEdit === 'false') {
+				this.post.song = JSON.parse(postStr).song;
+				this.post.song.singer = JSON.parse(postStr).song.singer.name;
+				console.log(this.post);
+				console.log(this.isEdit);
+				return ;
+			}
 			this.post = JSON.parse(postStr);
-			this.isEdit = options.isEdit;
 		},
 		computed:{
 			...mapState('user', ['userinfo']),

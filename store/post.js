@@ -57,8 +57,6 @@ export default {
 						item.text = post.text;
 					}
 				})
-				
-				
 				uni.showToast({
 					title: '添加成功！',
 					icon: 'success',
